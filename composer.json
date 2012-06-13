@@ -1,0 +1,22 @@
+{
+    "name": "manhattan/content-bundle",
+    "type": "symfony-bundle",
+    "description": "Easy integration of content bundle for Manhattan Content in Symfony2",
+    "keywords": ["security", "layout"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "James Rickard",
+            "email": "james@frodosghost.com",
+            "homepage": "www.frodosghost.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "Manhattan\\Bundle\\ContentBundle": "" }
+    },
+    "target-dir": "Manhattan/Bundle/ContentBundle",
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": "2.*"
+    }
+}
