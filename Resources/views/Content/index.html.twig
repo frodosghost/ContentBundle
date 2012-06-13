@@ -1,0 +1,34 @@
+{% extends "ManhattanConsoleBundle::layout.html.twig" %}
+
+{% block content %}
+<h1>Content List</h1>
+
+<table class="records_list table table-striped">
+    <thead>
+        <tr>
+            <th class="title">Title</th>
+            <th>Slug</th>
+            <th class="actions">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('content_show', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
+            <td>{{ entity.slug }}</td>
+            <td>
+                <a href="{{ path('content_show', { 'id': entity.id }) }}" class="btn btn-small">show</a>
+                <a href="{{ path('content_edit', { 'id': entity.id }) }}" class="btn btn-info btn-small">edit</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">{{ entity.body|raw }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ path('content_new') }}"  class="btn primary">
+    Create a new entry
+</a>
+{% endblock %}
