@@ -3,6 +3,7 @@
 namespace Manhattan\Bundle\ContentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -49,6 +50,11 @@ class Content
     private $body;
 
     /**
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="content", cascade={"persist", "remove"})
+     */
+    private $images;
+
+    /**
      * @var datetime $created_at
      *
      * @ORM\Column(name="created_at", type="datetime")
@@ -63,6 +69,14 @@ class Content
      * @Assert\Type("\DateTime")
      */
     private $updated_at;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -122,6 +136,40 @@ class Content
     public function getBody()
     {
         return $this->body;
+    }
+
+    /**
+     * Add Image
+     *
+     * @param Manhattan\Bundle\ContentBundle\Entity\Image $image
+     */
+    public function addImage(Image $image)
+    {
+        $this->images[] = $image;
+    }
+
+    /**
+     * Sets Image to persist with the object
+     *
+     * @param Doctrine\Common\Collections\ArrayCollection $images
+     */
+    public function setImages(\Doctrine\Common\Collections\Collection $images)
+    {
+        foreach ($images as $image) {
+            $image->addContent($this);
+        }
+
+        $this->images = $images;
+    }
+
+    /**
+     * Get Images
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getImages()
+    {
+        return $this->images;
     }
 
     /**
