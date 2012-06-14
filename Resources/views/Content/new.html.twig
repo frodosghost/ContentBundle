@@ -3,7 +3,6 @@
 {% block content %}
 <form action="{{ path('content_create') }}" method="post" class="form-horizontal well" {{ form_enctype(form) }} novalidate>
   <fieldset>
-  <legend>Content creation</legend>
     {{ form_widget(form) }}
     <div class="form-actions">
         <button type="submit" class="btn btn-primary">Create</button>
