@@ -5,6 +5,8 @@ namespace Manhattan\Bundle\ContentBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+use Symfony\Component\HttpFoundation\File\Exception\UploadException;
+
 /**
  * Manhattan\Bundle\ContentBundle\Entity\Asset
  *
@@ -14,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="class_name", type="string")
  * @ORM\DiscriminatorMap({
+ * "content_image" = "Manhattan\Bundle\ContentBundle\Entity\Image",
  * })
  */
 abstract class Asset
