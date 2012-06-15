@@ -1,8 +1,8 @@
 {
-    "name": "manhattan/contentbundle",
+    "name": "manhattan/content-bundle",
     "type": "symfony-bundle",
     "description": "Easy integration of content bundle for Manhattan Content in Symfony2",
-    "keywords": ["security", "layout"],
+    "keywords": ["content", "layout"],
     "license": "MIT",
     "authors": [
         {
