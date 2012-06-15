@@ -61,6 +61,12 @@ class Content
     private $lvl;
 
     /**
+     * @Gedmo\TreeRoot
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $root;
+
+    /**
      * @Gedmo\TreeParent
      * @ORM\ManyToOne(targetEntity="Content", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="SET NULL")
@@ -107,6 +113,11 @@ class Content
     public function __construct()
     {
         $this->images = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getTitle();
     }
 
     /**
@@ -167,6 +178,36 @@ class Content
     public function getBody()
     {
         return $this->body;
+    }
+
+    /**
+     * Get left
+     *
+     * @return Content 
+     */
+    public function getLeft()
+    {
+     return $this->lft;
+    }
+
+    /**
+     * Get right
+     *
+     * @return Content 
+     */
+    public function getRight()
+    {
+        return $this->rgt;
+    }
+
+    /**
+     * Get root
+     *
+     * @return Content 
+     */
+    public function getRoot()
+    {
+        return $this->root;
     }
 
     /**

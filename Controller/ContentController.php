@@ -6,8 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
 use Manhattan\Bundle\ContentBundle\Entity\Content;
 use Manhattan\Bundle\ContentBundle\Form\ContentType;
+use Symfony\Bridge\Doctrine\Form\ChoiceList\EntityChoiceList;
+use Manhattan\Bundle\ContentBundle\Form\ChoiceList\ContentEntityLoader;
 
 /**
  * Content controller.
@@ -116,7 +119,15 @@ class ContentController extends Controller
             throw $this->createNotFoundException('Unable to find Content entity.');
         }
 
-        $editForm = $this->createForm(new ContentType(), $entity);
+        $choice_loader = new ContentEntityLoader($this, $em, $entity);
+        $choice_list = new EntityChoiceList(
+            $em,
+            'Manhattan\Bundle\ContentBundle\Entity\Content',
+            'title',
+            $choice_loader
+        );
+
+        $editForm = $this->createForm(new ContentType($choice_list), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
@@ -143,7 +154,15 @@ class ContentController extends Controller
             throw $this->createNotFoundException('Unable to find Content entity.');
         }
 
-        $editForm   = $this->createForm(new ContentType(), $entity);
+        $choice_loader = new ContentEntityLoader($this, $em, $entity);
+        $choice_list = new EntityChoiceList(
+            $em,
+            'Manhattan\Bundle\ContentBundle\Entity\Content',
+            'title',
+            $choice_loader
+        );
+
+        $editForm   = $this->createForm(new ContentType($choice_list), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
