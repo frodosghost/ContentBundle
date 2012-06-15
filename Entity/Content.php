@@ -11,8 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Manhattan\Bundle\ContentBundle\Entity\Content
  *
  * @ORM\Table(name="content")
- * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
+ * @Gedmo\Tree(type="nested")
  * @ORM\Entity(repositoryClass="Manhattan\Bundle\ContentBundle\Entity\ContentRepository")
  */
 class Content
@@ -41,6 +41,37 @@ class Content
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
+
+    /**
+     * @Gedmo\TreeLeft
+     * @ORM\Column(name="lft", type="integer")
+     */
+    private $lft;
+
+    /**
+     * @Gedmo\TreeRight
+     * @ORM\Column(name="rgt", type="integer")
+     */
+    private $rgt;
+
+    /**
+     * @Gedmo\TreeLevel
+     * @ORM\Column(name="lvl", type="integer")
+     */
+    private $lvl;
+
+    /**
+     * @Gedmo\TreeParent
+     * @ORM\ManyToOne(targetEntity="Content", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Content", mappedBy="parent")
+     * @ORM\OrderBy({"lft" = "ASC"})
+     */
+    private $children;
 
     /**
      * @var text $body
@@ -136,6 +167,26 @@ class Content
     public function getBody()
     {
         return $this->body;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param Content $parent
+     */
+    public function setParent(Content $parent)
+    {
+        $this->parent = $parent;    
+    }
+
+    /**
+     * Get parent object
+     *
+     * @return Content 
+     */
+    public function getParent()
+    {
+        return $this->parent;   
     }
 
     /**
