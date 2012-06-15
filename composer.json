@@ -1,5 +1,5 @@
 {
-    "name": "manhattan/content-bundle",
+    "name": "manhattan/contentbundle",
     "type": "symfony-bundle",
     "description": "Easy integration of content bundle for Manhattan Content in Symfony2",
     "keywords": ["security", "layout"],
