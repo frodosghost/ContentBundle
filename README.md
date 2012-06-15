@@ -25,5 +25,4 @@ If you are using Symfony 2.1 you can install by adding the dependencies into the
                }
            }
        }
-   ]
-
+    ]
