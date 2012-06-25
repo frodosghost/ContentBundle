@@ -2,9 +2,7 @@
 
 {% block content %}
 <form action="{{ path('content_update', { 'id': entity.id }) }}" class="form-horizontal well" method="post" {{ form_enctype(edit_form) }} novalidate>
-  <fieldset>
-  <legend>Content edit</legend>
-  
+  <fieldset>  
     {{ form_widget(edit_form) }}
     <div class="form-actions">
         <a href="{{ path('content') }}" class="btn">Back to the list</a>
