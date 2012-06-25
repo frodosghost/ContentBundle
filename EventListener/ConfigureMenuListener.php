@@ -1,13 +1,13 @@
 <?php
 
-namespace Manhattan\Bundle\ContentBundle\EventListener;
+namespace AGB\Bundle\ContentBundle\EventListener;
 
-use Manhattan\Bundle\ConsoleBundle\Event\ConfigureMenuEvent;
+use AGB\Bundle\ConsoleBundle\Event\ConfigureMenuEvent;
 
 class ConfigureMenuListener
 {
     /**
-     * @param Manhattan\Bundle\ConsoleBundle\Event\ConfigureMenuEvent $event
+     * @param AGB\Bundle\ConsoleBundle\Event\ConfigureMenuEvent $event
      */
     public function onMenuConfigure(ConfigureMenuEvent $event)
     {

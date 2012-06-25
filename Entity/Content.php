@@ -1,6 +1,6 @@
 <?php
 
-namespace Manhattan\Bundle\ContentBundle\Entity;
+namespace AGB\Bundle\ContentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,12 +8,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Manhattan\Bundle\ContentBundle\Entity\Content
+ * AGB\Bundle\ContentBundle\Entity\Content
  *
  * @ORM\Table(name="content")
  * @ORM\HasLifecycleCallbacks
  * @Gedmo\Tree(type="nested")
- * @ORM\Entity(repositoryClass="Manhattan\Bundle\ContentBundle\Entity\ContentRepository")
+ * @ORM\Entity(repositoryClass="AGB\Bundle\ContentBundle\Entity\ContentRepository")
  */
 class Content
 {
@@ -233,7 +233,7 @@ class Content
     /**
      * Add Image
      *
-     * @param Manhattan\Bundle\ContentBundle\Entity\Image $image
+     * @param AGB\Bundle\ContentBundle\Entity\Image $image
      */
     public function addImage(Image $image)
     {

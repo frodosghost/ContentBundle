@@ -1,11 +1,11 @@
 <?php
 
-namespace Manhattan\Bundle\ContentBundle\Tests\Form;
+namespace AGB\Bundle\ContentBundle\Tests\Form;
 
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\Extension\Core\CoreExtension;
 
-use Manhattan\Bundle\ContentBundle\Form\ContentType;
+use AGB\Bundle\ContentBundle\Form\ContentType;
 
 class ContentTypeTest extends \PHPUnit_Framework_TestCase
 {
@@ -25,7 +25,7 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testFormNameIsGallery()
     {
-        $mock_gallery = $this->getMock('Manhattan\Bundle\ContentBundle\Entity\Content');
+        $mock_gallery = $this->getMock('AGB\Bundle\ContentBundle\Entity\Content');
         $form = $this->factory->create(new TestContentType(), $mock_gallery);
 
         $this->assertEquals('content', $form->getName());
@@ -33,7 +33,7 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildFormHasCreateFields()
     {
-        $mock_gallery = $this->getMock('Manhattan\Bundle\ContentBundle\Entity\Content');
+        $mock_gallery = $this->getMock('AGB\Bundle\ContentBundle\Entity\Content');
         $form = $this->factory->create(new TestContentType(), $mock_gallery);
 
         $this->assertTrue($form->has('title'),

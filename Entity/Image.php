@@ -1,14 +1,14 @@
 <?php
 
-namespace Manhattan\Bundle\ContentBundle\Entity;
+namespace AGB\Bundle\ContentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
-use Manhattan\Bundle\ContentBundle\Entity\Asset as Asset;
+use AGB\Bundle\ContentBundle\Entity\Asset as Asset;
 /**
- * Manhattan\Bundle\ContentBundle\Entity\Image
+ * AGB\Bundle\ContentBundle\Entity\Image
  *
  * @ORM\Table(name="content_image")
  * @ORM\Entity
@@ -30,7 +30,7 @@ class Image extends Asset
     /**
      * Add content
      *
-     * @param Manhattan\Bundle\ContentBundle\Entity\Content $content
+     * @param AGB\Bundle\ContentBundle\Entity\Content $content
      */
     public function addContent(Content $content)
     {

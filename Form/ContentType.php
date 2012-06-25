@@ -1,6 +1,6 @@
 <?php
 
-namespace Manhattan\Bundle\ContentBundle\Form;
+namespace AGB\Bundle\ContentBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,7 +29,7 @@ class ContentType extends AbstractType
         ;
 
         $options = array(
-            'class' => 'ManhattanContentBundle:Content',
+            'class' => 'AGBContentBundle:Content',
             'empty_value' => '---',
             'required' => false,
         );

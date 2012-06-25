@@ -6,11 +6,11 @@
 
     <!--
     <parameters>
-        <parameter key="manhattan_content.example.class">Manhattan\Bundle\ContentBundle\Example</parameter>
+        <parameter key="agb_content.example.class">AGB\Bundle\ContentBundle\Example</parameter>
     </parameters>
 
     <services>
-        <service id="manhattan_content.example" class="%manhattan_content.example.class%">
+        <service id="agb_content.example" class="%agb_content.example.class%">
             <argument type="service" id="service_id" />
             <argument>plain_value</argument>
             <argument>%parameter_name%</argument>

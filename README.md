@@ -6,21 +6,21 @@ If you are using Symfony 2.1 you can install by adding the dependencies into the
 
     "require": {
         ...
-        "manhattan/contentbundle": "dev-master"        
+        "agb/content-bundle": "dev-master"        
     },
     "repositories": [
        {
            "type": "package",
            "package": {
                "version": "dev-master",
-               "name": "manhattan/contentbundle",
+               "name": "agb/content-bundle",
                "source": {
-                   "url": "git@bitbucket.org:frodosghost/contentbundle.git",
+                   "url": "git@bitbucket.org:frodosghost/agbcontentbundle.git",
                    "type": "git",
                    "reference": "master"
                },
                "dist": {
-                   "url": "https://bitbucket.org/frodosghost/contentbundle/get/master.zip",
+                   "url": "https://bitbucket.org/frodosghost/agbcontentbundle/get/master.zip",
                    "type": "zip"
                }
            }

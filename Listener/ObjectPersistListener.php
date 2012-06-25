@@ -1,8 +1,8 @@
 <?php
-namespace Manhattan\Bundle\ContentBundle\Listener;
+namespace AGB\Bundle\ContentBundle\Listener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Manhattan\Bundle\ContentBundle\Entity\Asset;
+use AGB\Bundle\ContentBundle\Entity\Asset;
 
 class ObjectPersistListener
 {

@@ -1,6 +1,6 @@
 <?php
 /*
-namespace Manhattan\Bundle\ContentBundle\Tests\Controller;
+namespace AGB\Bundle\ContentBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

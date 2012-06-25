@@ -1,8 +1,8 @@
 <?php
 
-namespace Manhattan\Bundle\ContentBundle\Tests\Entity;
+namespace AGB\Bundle\ContentBundle\Tests\Entity;
 
-use Manhattan\Bundle\ContentBundle\Entity\Content;
+use AGB\Bundle\ContentBundle\Entity\Content;
 
 /**
  * ContentTest

@@ -1,6 +1,6 @@
 <?php
 
-namespace Manhattan\Bundle\ContentBundle\Form\ChoiceList;
+namespace AGB\Bundle\ContentBundle\Form\ChoiceList;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
@@ -34,7 +34,7 @@ class ContentEntityLoader implements EntityLoaderInterface
         $qb = $this->getEntityManager()
             ->createQueryBuilder()
             ->select('c')
-            ->from('ManhattanContentBundle:Content', 'c')
+            ->from('AGBContentBundle:Content', 'c')
         ;
 
         if (!is_null($this->basedOnNode)) {
@@ -43,7 +43,7 @@ class ContentEntityLoader implements EntityLoaderInterface
                 $this->getEntityManager()
                     ->createQueryBuilder()
                     ->select('n')
-                    ->from('ManhattanContentBundle:Content', 'n')
+                    ->from('AGBContentBundle:Content', 'n')
                     ->where('n.root = '.$this->basedOnNode->getRoot())
                     ->andWhere($qb->expr()->between(
                         'n.lft',
@@ -67,7 +67,7 @@ class ContentEntityLoader implements EntityLoaderInterface
         $q = $this->getEntityManager()
             ->createQueryBuilder()
             ->select('c')
-            ->from('ManhattanContentBundle:Content', 'c')
+            ->from('AGBContentBundle:Content', 'c')
             ->where($qb->expr()->in(
                 'c.'.$identifier,
                 ':ids'

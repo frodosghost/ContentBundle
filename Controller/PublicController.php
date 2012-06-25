@@ -1,14 +1,14 @@
 <?php
 
-namespace Manhattan\Bundle\ContentBundle\Controller;
+namespace AGB\Bundle\ContentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use Manhattan\Bundle\ContentBundle\Entity\Content;
-use Manhattan\Bundle\ContentBundle\Form\ContentType;
+use AGB\Bundle\ContentBundle\Entity\Content;
+use AGB\Bundle\ContentBundle\Form\ContentType;
 
 /**
  * Public controller.
@@ -26,7 +26,7 @@ class PublicController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $content = $em->getRepository('ManhattanContentBundle:Content')
+        $content = $em->getRepository('AGBContentBundle:Content')
             ->findOneBySlug('about-me');
 
         return array('content' => $content);

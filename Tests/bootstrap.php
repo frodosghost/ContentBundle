@@ -10,7 +10,7 @@ $loader->register();
 
 spl_autoload_register(function($class)
 {
-    if (0 === strpos($class, 'Manhattan\\Bundle\\ContentBundle\\')) {
+    if (0 === strpos($class, 'AGB\\Bundle\\ContentBundle\\')) {
         $path = implode('/', array_slice(explode('\\', $class), 3)).'.php';
         require_once __DIR__.'/../'.$path;
         return true;
