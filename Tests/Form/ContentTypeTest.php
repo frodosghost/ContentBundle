@@ -13,10 +13,8 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $ext = new CoreExtension();
-
         $this->factory = new FormFactory(array(
-            $ext
+            new CoreExtension()
         ));
     }
 
@@ -28,7 +26,7 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
     public function testFormNameIsGallery()
     {
         $mock_gallery = $this->getMock('Manhattan\Bundle\ContentBundle\Entity\Content');
-        $form = $this->factory->create(new ContentType(), $mock_gallery);
+        $form = $this->factory->create(new TestContentType(), $mock_gallery);
 
         $this->assertEquals('content', $form->getName());
     }
@@ -36,7 +34,7 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
     public function testBuildFormHasCreateFields()
     {
         $mock_gallery = $this->getMock('Manhattan\Bundle\ContentBundle\Entity\Content');
-        $form = $this->factory->create(new ContentType(), $mock_gallery);
+        $form = $this->factory->create(new TestContentType(), $mock_gallery);
 
         $this->assertTrue($form->has('title'),
             'The ContentType has a Title field.');
@@ -46,4 +44,23 @@ class ContentTypeTest extends \PHPUnit_Framework_TestCase
 
     }
 
+}
+
+
+/**
+ * Testing the field type 'entity' was complicated and imported too many dependencies.
+ * Because of this the field was removed from the form - as it was only tested as an exist anyway.
+ * If I could test better this would work.
+ */
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+
+class TestContentType extends ContentType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        parent::buildForm($builder, $options);
+
+        $builder->remove('parent');
+    }
 }
