@@ -2,7 +2,7 @@
 
 namespace AGB\Bundle\ContentBundle\EventListener;
 
-use AGB\Bundle\ConsoleBundle\Event\ConfigureMenuEvent;
+use Manhattan\Bundle\ConsoleBundle\Event\ConfigureMenuEvent;
 
 class ConfigureMenuListener
 {
