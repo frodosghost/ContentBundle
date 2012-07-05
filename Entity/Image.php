@@ -35,6 +35,7 @@ class Image extends Asset
     public function addContent(Content $content)
     {
         $this->content = $content;
+        return $this;
     }
 
     /**
@@ -51,4 +52,5 @@ class Image extends Asset
     {
         return 'uploads/content/'. $this->getContent()->getSlug();
     }
+
 }

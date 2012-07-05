@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\File\Exception\UploadException;
  * @ORM\DiscriminatorColumn(name="class_name", type="string")
  * @ORM\DiscriminatorMap({
  * "content_image" = "AGB\Bundle\ContentBundle\Entity\Image",
+ * "news_image" = "AGB\Bundle\NewsBundle\Entity\Image",
  * })
  */
 abstract class Asset
@@ -203,7 +204,7 @@ abstract class Asset
 
     private function getUploadRootDir()
     {
-        return __DIR__.'/../../../../../web/'.$this->getUploadDir();
+        return __DIR__.'/../../../../../../../web/'.$this->getUploadDir();
     }
 
     abstract public function getUploadDir();
@@ -244,6 +245,25 @@ abstract class Asset
 
         // clean up the file property as you won't need it anymore
         $this->setFile(null);
+    }
+
+    /**
+     * Assest is updated and requires image replacement this will replace the current image while retaining
+     * the field identifier.
+     *
+     * @ORM\PostUpdate()
+     */
+    public function replace()
+    {
+        if (null === $this->file) {
+            return false;
+        }
+
+        // Remove existing image from file system
+        $this->storeFilenameForRemove();
+        $this->removeUpload();
+
+        return true;
     }
 
     /**
