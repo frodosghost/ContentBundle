@@ -13,14 +13,14 @@ class ConfigureMenuListener
     {
         $menu = $event->getMenu();
 
-        $dropdown = $menu->addChild('Content', array('route'=>'content'))
+        $dropdown = $menu->addChild('Content', array('route'=>'console_content'))
             ->setLinkattribute('class', 'dropdown-toggle')
             ->setLinkattribute('data-toggle', 'dropdown')
             ->setAttribute('class', 'dropdown')
             ->setChildrenAttribute('class', 'menu-dropdown');
 
-        $dropdown->addChild('Content', array('route' => 'content'));
-        $dropdown->addChild('New Content', array('route' => 'content_new'));
+        $dropdown->addChild('Content', array('route' => 'console_content'));
+        $dropdown->addChild('New Content', array('route' => 'console_content_new'));
 
     }
 }

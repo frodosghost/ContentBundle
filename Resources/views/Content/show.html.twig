@@ -33,9 +33,9 @@
 </table>
 
     <div class="form-actions">
-        <a href="{{ path('content') }}" class="btn">Back to the list</a>
-        <a href="{{ path('content_edit', { 'id': entity.id }) }}" class="btn btn-primary">Edit</a>
-        <form action="{{ path('content_delete', { 'id': entity.id }) }}" class="actions-delete" method="post">
+        <a href="{{ path('console_content') }}" class="btn">Back to the list</a>
+        <a href="{{ path('console_content_edit', { 'id': entity.id }) }}" class="btn btn-primary">Edit</a>
+        <form action="{{ path('console_content_delete', { 'id': entity.id }) }}" class="actions-delete" method="post">
             {{ form_row(delete_form.id) }}
             {{ form_rest(delete_form) }}
             <button type="submit" class="btn btn-danger">Delete</button>

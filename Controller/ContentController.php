@@ -12,17 +12,19 @@ use AGB\Bundle\ContentBundle\Form\ContentType;
 use Symfony\Bridge\Doctrine\Form\ChoiceList\EntityChoiceList;
 use AGB\Bundle\ContentBundle\Form\ChoiceList\ContentEntityLoader;
 
+use JMS\SecurityExtraBundle\Annotation\Secure;
+
 /**
  * Content controller.
  *
- * @Route("/content")
+ * @Route("/console/content")
  */
 class ContentController extends Controller
 {
     /**
      * Lists all Content entities.
      *
-     * @Route("/", name="content")
+     * @Route("/", name="console_content")
      * @Template()
      */
     public function indexAction()
@@ -37,7 +39,7 @@ class ContentController extends Controller
     /**
      * Finds and displays a Content entity.
      *
-     * @Route("/{id}/show", name="content_show")
+     * @Route("/{id}/show", name="console_content_show")
      * @Template()
      */
     public function showAction($id)
@@ -60,7 +62,7 @@ class ContentController extends Controller
     /**
      * Displays a form to create a new Content entity.
      *
-     * @Route("/new", name="content_new")
+     * @Route("/new", name="console_content_new")
      * @Template()
      */
     public function newAction()
@@ -77,7 +79,7 @@ class ContentController extends Controller
     /**
      * Creates a new Content entity.
      *
-     * @Route("/create", name="content_create")
+     * @Route("/create", name="console_content_create")
      * @Method("post")
      * @Template("AGBContentBundle:Content:new.html.twig")
      */
@@ -106,7 +108,7 @@ class ContentController extends Controller
     /**
      * Displays a form to edit an existing Content entity.
      *
-     * @Route("/{id}/edit", name="content_edit")
+     * @Route("/{id}/edit", name="console_content_edit")
      * @Template()
      */
     public function editAction($id)
@@ -140,7 +142,7 @@ class ContentController extends Controller
     /**
      * Edits an existing Content entity.
      *
-     * @Route("/{id}/update", name="content_update")
+     * @Route("/{id}/update", name="console_content_update")
      * @Method("post")
      * @Template("AGBContentBundle:Content:edit.html.twig")
      */
@@ -186,7 +188,7 @@ class ContentController extends Controller
     /**
      * Deletes a Content entity.
      *
-     * @Route("/{id}/delete", name="content_delete")
+     * @Route("/{id}/delete", name="console_content_delete")
      * @Method("post")
      */
     public function deleteAction($id)

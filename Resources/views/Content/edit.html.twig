@@ -1,14 +1,14 @@
 {% extends "ManhattanConsoleBundle::layout.html.twig" %}
 
 {% block content %}
-<form action="{{ path('content_update', { 'id': entity.id }) }}" class="form-horizontal well" method="post" {{ form_enctype(edit_form) }} novalidate>
+<form action="{{ path('console_content_update', { 'id': entity.id }) }}" class="form-horizontal well" method="post" {{ form_enctype(edit_form) }} novalidate>
   <fieldset>  
     {{ form_widget(edit_form) }}
     <div class="form-actions">
-        <a href="{{ path('content') }}" class="btn">Back to the list</a>
+        <a href="{{ path('console_content') }}" class="btn">Back to the list</a>
         <button type="submit" class="btn btn-primary">Edit</button>
 </form>
-        <form action="{{ path('content_delete', { 'id': entity.id }) }}" class="actions-delete" method="post">
+        <form action="{{ path('console_content_delete', { 'id': entity.id }) }}" class="actions-delete" method="post">
             {{ form_row(delete_form.id) }}
             {{ form_rest(delete_form) }}
             <button type="submit" class="btn btn-danger">Delete</button>
@@ -16,3 +16,7 @@
     </div>
 </fieldset>
 {% endblock %}
+
+{% block page_javascript %}
+    {{ tinymce_init() }}
+{% endblock page_javascript %}
