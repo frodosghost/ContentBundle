@@ -24,7 +24,8 @@ class ContentType extends AbstractType
                 'attr'  => array(
                     'class' => 'tinymce',
                     'data-theme' => 'body'
-                ), 'required' => false
+                ), 'required' => false,
+                'label' => 'Body'
             ))
         ;
 
@@ -32,6 +33,7 @@ class ContentType extends AbstractType
             'class' => 'AGBContentBundle:Content',
             'empty_value' => '---',
             'required' => false,
+            'label' => 'Parent Page'
         );
         if ($this->choice_list) {
             $options['choice_list'] = $this->choice_list;
