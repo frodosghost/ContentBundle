@@ -152,6 +152,11 @@ abstract class Asset
         return ($this->filename != null || $this->filename != '');
     }
 
+    public function hasFile()
+    {
+        return ($this->file != null || $this->file != '');
+    }
+
     /**
      * Set created_at
      *
