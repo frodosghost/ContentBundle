@@ -95,7 +95,7 @@ class ContentController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('content_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('console_content_show', array('id' => $entity->getId())));
             
         }
 
@@ -175,7 +175,7 @@ class ContentController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('content_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('console_content_edit', array('id' => $id)));
         }
 
         return array(
@@ -210,7 +210,7 @@ class ContentController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('content'));
+        return $this->redirect($this->generateUrl('console_content'));
     }
 
     private function createDeleteForm($id)

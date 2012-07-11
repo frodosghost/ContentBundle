@@ -13,4 +13,66 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
  */
 class ContentRepository extends NestedTreeRepository
 {
+/**
+ * Generated Query Example :
+ * SELECT page.* FROM page, page AS page2, page AS page1
+ *   WHERE page.SLUG= 'three' AND page.TREE_LEVEL=3
+ *   AND (page2.SLUG='two' 
+ *     AND (page.TREE_LEVEL = (page2.TREE_LEVEL + 1) 
+ *     AND page.TREE_LEVEL = 3 
+ *     AND page.TREE_LEFT BETWEEN page2.TREE_LEFT AND page2.TREE_RIGHT))
+ *   AND (page1.SLUG='one' 
+ *     AND (page2.TREE_LEVEL = (page1.TREE_LEVEL + 1)
+ *     AND page2.TREE_LEVEL = 2
+ *     AND page2.TREE_LEFT BETWEEN page1.TREE_LEFT AND page1.TREE_RIGHT))
+ *   LIMIT 1;
+ */
+	/**
+	 *
+	 */
+	public function findOneBySlugInTree($slug)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery('
+                SELECT content, image FROM AGBContentBundle:Content content
+                LEFT JOIN content.images image
+                WHERE content.lvl = 0 AND content.slug = :slug'
+            )->setParameters(array(
+                'slug' => $slug
+            ));
+
+        try {
+            return $query->getSingleResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
+
+    /**
+	 *
+	 */
+	public function findOneByTwoSlugsInTree($slug_one, $slug_two)
+	{
+		$query = $this->getEntityManager()
+            ->createQuery('
+                SELECT content, parent, image FROM AGBContentBundle:Content content
+                LEFT JOIN content.images image
+                LEFT JOIN content.parent parent
+                WHERE content.lvl = 1 AND content.slug = :slug_two
+                	AND (parent.slug = :slug_one
+                		AND (content.lvl = (parent.lvl + 1)
+                		AND content.lft > parent.lft 
+                		AND content.lft < parent.rgt))'
+            )->setParameters(array(
+                'slug_one' => $slug_one,
+                'slug_two' => $slug_two
+            ));
+
+        try {
+            return $query->getSingleResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+	}
+
 }

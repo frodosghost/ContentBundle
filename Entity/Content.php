@@ -211,6 +211,14 @@ class Content
     }
 
     /**
+     * @return integer 
+     */
+    public function getLevel()
+    {
+        return $this->lvl;
+    }
+
+    /**
      * Set parent
      *
      * @param Content $parent
@@ -228,6 +236,16 @@ class Content
     public function getParent()
     {
         return $this->parent;   
+    }
+
+    /**
+     * Get children
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
     }
 
     /**

@@ -31,4 +31,5 @@ class PublicController extends Controller
 
         return array('content' => $content);
     }
+
 }
