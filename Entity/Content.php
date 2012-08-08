@@ -323,7 +323,7 @@ class Content
     }
 
     /**
-     * @ORM\prePersist
+     * @ORM\PrePersist
      */
     public function prePersist() {
         $this->setCreatedAt(new \DateTime());
@@ -331,7 +331,7 @@ class Content
     }
     
     /**
-     * @ORM\preUpdate
+     * @ORM\PreUpdate
      */
     public function preUpdate() {
         $this->setUpdatedAt(new \DateTime());

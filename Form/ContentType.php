@@ -30,7 +30,7 @@ class ContentType extends AbstractType
         ;
 
         $options = array(
-            'class' => 'AGBContentBundle:Content',
+            'class' => 'AGB\Bundle\ContentBundle\Entity\Content',
             'empty_value' => '---',
             'required' => false,
             'label' => 'Parent Page'
