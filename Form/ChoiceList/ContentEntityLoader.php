@@ -64,17 +64,17 @@ class ContentEntityLoader implements EntityLoaderInterface
      */
     public function getEntitiesByIds($identifier, array $values)
     {
-        $q = $this->getEntityManager()
+        $qb = $this->getEntityManager()
             ->createQueryBuilder()
             ->select('c')
-            ->from('AGBContentBundle:Content', 'c')
-            ->where($qb->expr()->in(
-                'c.'.$identifier,
-                ':ids'
-            ))
-            ->setParameter('ids', $values, Connection::PARAM_INT_ARRAY)
-            ->getQuery()
-        ;
+            ->from('AGBContentBundle:Content', 'c');
+
+        $qb->where($qb->expr()->in(
+            'c.'.$identifier,
+            ':ids'
+        ))->setParameter('ids', $values, Connection::PARAM_INT_ARRAY);
+
+        $q = $qb->getQuery();
 
         return $q->getResult();
     }
