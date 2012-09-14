@@ -83,6 +83,9 @@ class Content
      * @var text $body
      *
      * @ORM\Column(name="body", type="text")
+     * @Assert\NotBlank(
+     *     message = "Please enter some text for the body of the page."
+     * )
      */
     private $body;
 
