@@ -19,7 +19,8 @@ class ConfigureMenuListener
             ->setAttribute('class', 'dropdown')
             ->setChildrenAttribute('class', 'menu-dropdown');
 
-        $dropdown->addChild('Content', array('route' => 'console_content'));
+        $dropdown->addChild('Content', array('route' => 'console_content'))
+            ->setLinkattribute('class', 'main');
         $dropdown->addChild('New Content', array('route' => 'console_content_new'));
 
     }
