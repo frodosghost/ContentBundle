@@ -24,7 +24,7 @@ class ContentType extends AbstractType
                 'attr'  => array(
                     'class' => 'tinymce',
                     'data-theme' => 'body'
-                ), 'required' => false,
+                ), 'required' => true,
                 'label' => 'Body'
             ))
         ;
