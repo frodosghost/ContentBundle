@@ -1,3 +1,6 @@
+imports:
+    - { resource: '@AGBContentBundle/Resources/config/parameters.xml' }
+
 services:
     # Doctrine Extension listeners to handle behaviors
     gedmo.listener.tree:

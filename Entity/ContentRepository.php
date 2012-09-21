@@ -13,32 +13,40 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
  */
 class ContentRepository extends NestedTreeRepository
 {
-/**
- * Generated Query Example :
- * SELECT page.* FROM page, page AS page2, page AS page1
- *   WHERE page.SLUG= 'three' AND page.TREE_LEVEL=3
- *   AND (page2.SLUG='two' 
- *     AND (page.TREE_LEVEL = (page2.TREE_LEVEL + 1) 
- *     AND page.TREE_LEVEL = 3 
- *     AND page.TREE_LEFT BETWEEN page2.TREE_LEFT AND page2.TREE_RIGHT))
- *   AND (page1.SLUG='one' 
- *     AND (page2.TREE_LEVEL = (page1.TREE_LEVEL + 1)
- *     AND page2.TREE_LEVEL = 2
- *     AND page2.TREE_LEFT BETWEEN page1.TREE_LEFT AND page1.TREE_RIGHT))
- *   LIMIT 1;
- */
-	/**
-	 *
-	 */
+    private $publish_state = 0;
+
+    /**
+     * Generated Query Example :
+     * SELECT page.* FROM page, page AS page2, page AS page1
+     *   WHERE page.SLUG= 'three' AND page.TREE_LEVEL=3
+     *   AND (page2.SLUG='two' 
+     *     AND (page.TREE_LEVEL = (page2.TREE_LEVEL + 1) 
+     *     AND page.TREE_LEVEL = 3 
+     *     AND page.TREE_LEFT BETWEEN page2.TREE_LEFT AND page2.TREE_RIGHT))
+     *   AND (page1.SLUG='one' 
+     *     AND (page2.TREE_LEVEL = (page1.TREE_LEVEL + 1)
+     *     AND page2.TREE_LEVEL = 2
+     *     AND page2.TREE_LEFT BETWEEN page1.TREE_LEFT AND page1.TREE_RIGHT))
+     *   LIMIT 1;
+     */
+	
+    /**
+     * Returns Content from position in tree
+     * 
+     * @param  string $slug
+     * @return Content
+     */
 	public function findOneBySlugInTree($slug)
     {
         $query = $this->getEntityManager()
             ->createQuery('
                 SELECT content, image FROM AGBContentBundle:Content content
                 LEFT JOIN content.images image
-                WHERE content.lvl = 0 AND content.slug = :slug'
+                WHERE content.lvl = 0 AND content.slug = :slug
+                    AND content.publish_state = :publish_state'
             )->setParameters(array(
-                'slug' => $slug
+                'slug' => $slug,
+                'publish_state' => $this->getPublishState()
             ));
 
         try {
@@ -49,8 +57,12 @@ class ContentRepository extends NestedTreeRepository
     }
 
     /**
-	 *
-	 */
+     * Returns Content from position in tree
+     * 
+     * @param  string $slug_one
+     * @param  string $slug_two
+     * @return Content
+     */
 	public function findOneByTwoSlugsInTree($slug_one, $slug_two)
 	{
 		$query = $this->getEntityManager()
@@ -74,5 +86,23 @@ class ContentRepository extends NestedTreeRepository
             return null;
         }
 	}
+
+    /**
+     * Sets Publish State to be returned from query
+     * 
+     * @param  int $publish_state
+     * @return Content
+     */
+    public function setPublishState($publish_state)
+    {
+        $this->publish_state = $publish_state;
+
+        return $this;
+    }
+
+    public function getPublishState()
+    {
+        return $this->publish_state;
+    }
 
 }

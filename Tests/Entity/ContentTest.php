@@ -36,4 +36,17 @@ class ContentTest extends \PHPUnit_Framework_TestCase
             '->preUpdate() sets the UpdatedAt field correctly.');
     }
 
+    public function testPublishState()
+    {
+        $content = new Content();
+
+        $this->assertEquals($content->getPublishState(), 1,
+            '->getPublishState() returns 1 as value when no Publish State has not been set.');
+
+        $content->setPublishState(16);
+
+        $this->assertEquals($content->getPublishState(), 16,
+            '->getPublishState() returns 16 as value when Publish State setter has been used.');
+    }
+
 }

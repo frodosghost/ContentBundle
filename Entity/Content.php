@@ -18,6 +18,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Content
 {
     /**
+     * Publish States
+     */
+    const DRAFT = 1;
+
+    const PUBLISH = 2;
+
+    const ARCHIVE = 4;
+
+    /**
      * @var integer $id
      *
      * @ORM\Column(name="id", type="integer")
@@ -95,6 +104,12 @@ class Content
     private $images;
 
     /**
+     * @Gedmo\TreeLevel
+     * @ORM\Column(name="publish_state", type="integer")
+     */
+    private $publish_state;
+
+    /**
      * @var datetime $created_at
      *
      * @ORM\Column(name="created_at", type="datetime")
@@ -116,6 +131,7 @@ class Content
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->publish_state = 1;
     }
 
     public function __toString()
@@ -283,6 +299,26 @@ class Content
     public function getImages()
     {
         return $this->images;
+    }
+
+    /**
+     * Set publish_state
+     *
+     * @param text $publish_state
+     */
+    public function setPublishState($publish_state)
+    {
+        $this->publish_state = $publish_state;
+    }
+
+    /**
+     * Get publish_state
+     *
+     * @return text 
+     */
+    public function getPublishState()
+    {
+        return $this->publish_state;
     }
 
     /**
