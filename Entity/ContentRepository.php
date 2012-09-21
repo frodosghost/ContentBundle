@@ -13,7 +13,7 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
  */
 class ContentRepository extends NestedTreeRepository
 {
-    private $publish_state = 0;
+    private $publish_state = 1;
 
     /**
      * Generated Query Example :
@@ -71,13 +71,16 @@ class ContentRepository extends NestedTreeRepository
                 LEFT JOIN content.images image
                 LEFT JOIN content.parent parent
                 WHERE content.lvl = 1 AND content.slug = :slug_two
+                    AND content.publish_state = :publish_state
                 	AND (parent.slug = :slug_one
+                        AND parent.publish_state = :publish_state
                 		AND (content.lvl = (parent.lvl + 1)
                 		AND content.lft > parent.lft 
                 		AND content.lft < parent.rgt))'
             )->setParameters(array(
                 'slug_one' => $slug_one,
-                'slug_two' => $slug_two
+                'slug_two' => $slug_two,
+                'publish_state' => $this->getPublishState()
             ));
 
         try {

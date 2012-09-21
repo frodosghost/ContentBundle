@@ -19,6 +19,8 @@ class Content
 {
     /**
      * Publish States
+     *
+     * @link(Bitwise Operators, http://php.net/manual/en/language.operators.bitwise.php)
      */
     const DRAFT = 1;
 
@@ -104,7 +106,8 @@ class Content
     private $images;
 
     /**
-     * @Gedmo\TreeLevel
+     * var integer $publish_state
+     * 
      * @ORM\Column(name="publish_state", type="integer")
      */
     private $publish_state;
@@ -304,7 +307,7 @@ class Content
     /**
      * Set publish_state
      *
-     * @param text $publish_state
+     * @param integer $publish_state
      */
     public function setPublishState($publish_state)
     {
@@ -314,7 +317,7 @@ class Content
     /**
      * Get publish_state
      *
-     * @return text 
+     * @return integer 
      */
     public function getPublishState()
     {
