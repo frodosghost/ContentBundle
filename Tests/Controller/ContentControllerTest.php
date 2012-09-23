@@ -59,7 +59,7 @@ class ContentControllerTest extends WebTestCase
         //exit;
         // Check the element contains an attribute with value equals "Foo"
         $this->assertTrue($crawler->filter('[value="Foo"]')->count() > 0);
-        $this->assertEquals(2, $crawler->filter('#content_publish_state option:contains("Archive")')->attr('value'),
+        $this->assertEquals(4, $crawler->filter('#content_publish_state option:contains("Archive")')->attr('value'),
             'Archive value has been set from the select box and updated to Archive value.');
 
         // Delete the entity
