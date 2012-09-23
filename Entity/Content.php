@@ -379,4 +379,18 @@ class Content
         $this->setUpdatedAt(new \DateTime());
     }
 
+    /**
+     * Returns array of static values for configuring form select values
+     * 
+     * @return srray
+     */
+    public function getStaticArray()
+    {
+        return array(
+            self::DRAFT => 'Draft',
+            self::PUBLISH => 'Publish',
+            self::ARCHIVE => 'Archive'
+        );
+    }
+
 }

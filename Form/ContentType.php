@@ -27,6 +27,9 @@ class ContentType extends AbstractType
                 ), 'required' => true,
                 'label' => 'Body'
             ))
+            ->add('publish_state', 'choice', array(
+                'choices' => $options['data']->getStaticArray()
+            ))
         ;
 
         $options = array(
