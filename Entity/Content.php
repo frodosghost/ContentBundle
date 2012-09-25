@@ -106,6 +106,13 @@ class Content
     private $images;
 
     /**
+     * @ORM\OneToMany(
+     *     targetEntity="AGB\Bundle\ContentBundle\Entity\Document", mappedBy="content", cascade={"persist", "remove"}
+     * )
+     */
+    private $documents;
+
+    /**
      * var integer $publish_state
      * 
      * @ORM\Column(name="publish_state", type="integer")
@@ -134,6 +141,7 @@ class Content
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->documents = new ArrayCollection();
         $this->publish_state = 1;
     }
 
@@ -302,6 +310,29 @@ class Content
     public function getImages()
     {
         return $this->images;
+    }
+
+    /**
+     * Add Document
+     *
+     * @param AGB\Bundle\ContentBundle\Entity\Document $document
+     */
+    public function addDocument(Document $document)
+    {
+        $document->addContent($this);
+        $this->documents[] = $document;
+
+        return $this;
+    }
+
+    /**
+     * Get Documents
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getDocuments()
+    {
+        return $this->documents;
     }
 
     /**

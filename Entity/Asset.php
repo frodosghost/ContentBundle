@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\File\Exception\UploadException;
  * @ORM\DiscriminatorColumn(name="class_name", type="string")
  * @ORM\DiscriminatorMap({
  * "content_image" = "AGB\Bundle\ContentBundle\Entity\Image",
+ * "content_document" = "AGB\Bundle\ContentBundle\Entity\Document",
  * "news_image" = "AGB\Bundle\NewsBundle\Entity\Image",
  * "slideshow_image" = "AGB\Bundle\SlideshowBundle\Entity\Image",
  * })
