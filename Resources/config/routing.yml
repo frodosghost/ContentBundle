@@ -1,0 +1,7 @@
+AGBContent:
+    resource: "@AGBContentBundle/Controller/ContentController.php"
+    type:     annotation
+
+AGBContentDocuments:
+    resource: "@AGBContentBundle/Controller/DocumentController.php"
+    type:     annotation

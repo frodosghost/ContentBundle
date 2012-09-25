@@ -2,8 +2,23 @@
 
 {% block content %}
 <form action="{{ path('console_content_update', { 'id': entity.id }) }}" class="form-horizontal well" method="post" {{ form_enctype(edit_form) }} novalidate>
-  <fieldset>  
-    {{ form_widget(edit_form) }}
+    <div class="manage">
+        <a href="{{ path('console_project_documents', { 'id': entity.id }) }}" class="btn manage">Manage Documents</a>
+        <h2>{{ entity.title }}</h2>
+        {{ form_widget(edit_form) }}
+
+    <div class="control-group">
+        <label class="control-label" for="gallery_photos">Documents</label>
+        <div class="controls">
+            <dl>
+            {% for document in entity.documents %}
+                <dt>{{ document.title }}</dt>
+                <dd>{{ document.description }}</dd>
+            {% endfor %}
+            </dl>
+        </div>
+    </div>
+
     <div class="form-actions">
         <a href="{{ path('console_content') }}" class="btn">Back to the list</a>
         <button type="submit" class="btn btn-primary">Edit</button>
@@ -13,6 +28,7 @@
             {{ form_rest(delete_form) }}
             <button type="submit" class="btn btn-danger">Delete</button>
         </form>
+    </div>
     </div>
 </fieldset>
 {% endblock %}
