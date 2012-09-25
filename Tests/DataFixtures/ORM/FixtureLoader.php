@@ -34,7 +34,7 @@ class FixtureLoader implements FixtureInterface
         $content_four = new Content();
         $content_four->setTitle('Bar Foo');
         $content_four->setBody('<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>');
-        $content_two->setParent($content_three);
+        $content_four->setParent($content_three);
         $content_four->setPublishState(2);
         $manager->persist($content_four);
 
