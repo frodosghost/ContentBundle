@@ -2,8 +2,7 @@
 
 {% block content %}
 
-{{ tree|striptags('<p><a><strong><em><ul><ol><li><h3><h4><h5><h6>')|raw  }}
-
+{{ tree|striptags('<p><span><a><i><strong><em><ul><ol><li><h3><h4><h5><h6>')|raw  }}
 
 <a href="{{ path('console_content_new') }}"  class="btn primary">
     Create a new entry
