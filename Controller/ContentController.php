@@ -44,24 +44,20 @@ class ContentController extends Controller
                 'childClose' => '</li>',
                 'nodeDecorator' => function($node) use (&$controller) {
                     switch ($node['publish_state']) {
-                        case 4: 
-                            $class = 'btn-warning';
-                            $icon = 'Archived';
+                        case 4:
+                            $publish_btn = '<span class="btn-small btn-warning">Archived</span>';
                             break;
                         case 2:
-                            $class = 'btn-success';
-                            $icon = 'Published';
+                            $publish_btn = '<span class="btn-small btn-success">Published</span>';
                             break;
                         default:
-                            $class = 'btn-info';
-                            $icon = 'Draft';
+                            $publish_btn = '<span class="btn-small btn-info">Draft</span>';
                             break;
                     }
 
                     $edit_link = '<a href="'.$controller->generateUrl("console_content_edit", array("id"=>$node['id'])).'">'.$node['title'].'</a>&nbsp;';
-                    $publish_btn = '<span class="btn-small '. $class .'" href="#">'. $icon .'</span>';
 
-                    return $edit_link .' '. $publish_btn;
+                    return $edit_link . $publish_btn;
                 }
             )
         );
