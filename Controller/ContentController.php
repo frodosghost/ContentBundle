@@ -29,11 +29,29 @@ class ContentController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $controller = $this;
+        $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AGBContentBundle:Content')->findAll();
+        $repository = $em->getRepository('AGBContentBundle:Content');
+        $htmlTree = $repository->childrenHierarchy(
+            null,  /* starting from root nodes */
+            false, /* load all children, not only direct */
+            $options = array(
+                'decorate' => true,
+                'rootOpen' => '<ul class="nested-tree">',
+                'rootClose' => '</ul>',
+                'childOpen' => '<li>',
+                'childClose' => '</li>',
+                'nodeDecorator' => function($node) use (&$controller) {
+                    return '<a href="'.$controller->generateUrl("console_content_edit", array("id"=>$node['id'])).'">'.$node['title'].'</a>&nbsp;';
+                }
+            )
+        );
 
-        return array('entities' => $entities);
+        return array(
+            'tree'     => $htmlTree
+        );
+
     }
 
     /**
