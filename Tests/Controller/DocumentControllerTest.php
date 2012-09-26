@@ -3,6 +3,7 @@
 namespace AGB\Bundle\ContentBundle\Tests\Controller;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class DocumentControllerTest extends WebTestCase
 {
@@ -33,6 +34,44 @@ class DocumentControllerTest extends WebTestCase
         $crawler = $client->click($crawler->selectLink('Edit')->link());
 
         $crawler = $client->click($crawler->selectLink('Manage Documents')->link());
+
+        $this->assertEquals('Documents: Foo', $crawler->filter('h2')->text(),
+            'Manage Documents page shows correct heading.');
+
+        $this->assertEquals(0, $crawler->filter('.document-list')->children()->count(),
+            'The Document List div is empty becuase nothing has been uploaded.');
+
+        $form = $crawler->selectButton('Add Document')->form(array(
+            'document[title]'       => 'Foo',
+            'document[description]' => 'Foo Bar'
+        ));
+        // Test Upload file
+        $document = new UploadedFile(
+            __FILE__,
+            'document.pdf',
+            'application/pdf',
+            123
+        );
+        $form['document[file]']->upload($document);
+
+        $client->submit($form);
+        $crawler = $client->followRedirect();
+
+        $this->assertEquals(1, $crawler->filter('.document-list')->children()->count(),
+            'The Document List has been updated with a single upload.');
+
+        /* Comment included so can return to checking form validation.
+         *
+           $form = $crawler->selectButton('Add Document')->form(array(
+           'document[title]'       => '',
+            'document[description]' => ''
+        ));
+
+        $client->submit($form);
+
+        $this->assertEquals(1, $crawler->filter('input[id=document_title]')->siblings(),
+            'The Document List has been updated with a single upload.');
+        */
 
     }
 

@@ -1,0 +1,38 @@
+{% extends "AGBContentBundle::layout.html.twig" %}
+
+{% block content %}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="manage">
+            <a href="{{ path('console_content_edit', { 'id': entity.id }) }}" class="btn manage">Back to Edit</a>
+            <h2><span>Documents:</span> {{ entity.title }}</h2>
+
+            <div class="row">
+                <div class="span8">
+                    <div class="control-group">
+                        <div class="document-list">
+                        {% for document in entity.documents %}
+                            <div class="document {{ document.mimeType }}">
+                                <h4>{{ document.title }}</h4>
+                                <p>{{ document.description }}</p>
+                            </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="span4">
+                    <form action="{{ path('console_document_create', { 'id': entity.id }) }}" class="form-vertical well" method="post" {{ form_enctype(form) }} novalidate>
+                        {{ form_widget(form) }}
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Add Document</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
