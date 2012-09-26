@@ -96,4 +96,40 @@ class ContentRepositoryFunctionalTest extends WebTestCase
             'findOneByTwoSlugsInTree() returns NULL root node is Draft and target node is Published');
     }
 
+    /**
+     * Tests finding no documents when item has no documents attached
+     */
+    public function testFindByIdJoinDocumentsNone()
+    {
+        $content = $this->em
+            ->getRepository('AGBContentBundle:Content')
+            ->setPublishState(2)
+            ->findOneByIdJoinDocuments(2);
+
+        $this->assertInstanceOf('AGB\Bundle\ContentBundle\Entity\Content', $content,
+            'findOneByIdJoinDocuments() returns Content object with query');
+
+        $this->assertEquals(0, $content->getDocuments()->count(),
+            '->getDocuments() returns a count of 0 with no documents attached.');
+    }
+
+    /**
+     * Tests Finding Document as joined object with one database entry
+     */
+    public function testFindByIdJoinDocumentsOne()
+    {
+        $content = $this->em
+            ->getRepository('AGBContentBundle:Content')
+            ->findOneByIdJoinDocuments(5);
+
+        $this->assertInstanceOf('AGB\Bundle\ContentBundle\Entity\Content', $content,
+            'findOneByIdJoinDocuments() returns Content object with query');
+
+        $this->assertEquals(1, $content->getDocuments()->count(),
+            '->getDocuments() returns a count of 1 when one document is attached.');
+
+        $this->assertInstanceOf('AGB\Bundle\ContentBundle\Entity\Document', $content->getDocuments()->first(),
+            '->getDocuments() First element is returned matches the class Document');
+    }
+
 }

@@ -33,7 +33,7 @@ class ContentRepository extends NestedTreeRepository
     /**
      * Returns Content from position in tree
      * 
-     * @param  string $slug
+     * @param  string  $slug
      * @return Content
      */
 	public function findOneBySlugInTree($slug)
@@ -91,9 +91,33 @@ class ContentRepository extends NestedTreeRepository
 	}
 
     /**
+     * Returns Content with joined Documents
+     * 
+     * @param  int     $id
+     * @return Content
+     */
+    public function findOneByIdJoinDocuments($id)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery('
+                SELECT content, document FROM AGBContentBundle:Content content
+                LEFT JOIN content.documents document
+                WHERE content.id = :id'
+            )->setParameters(array(
+                'id' => $id
+        ));
+
+        try {
+            return $query->getSingleResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
+
+    /**
      * Sets Publish State to be returned from query
      * 
-     * @param  int $publish_state
+     * @param  int     $publish_state
      * @return Content
      */
     public function setPublishState($publish_state)

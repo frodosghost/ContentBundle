@@ -6,6 +6,7 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 use AGB\Bundle\ContentBundle\Entity\Content;
+use AGB\Bundle\ContentBundle\Entity\Document;
  
 class FixtureLoader implements FixtureInterface
 {
@@ -37,6 +38,18 @@ class FixtureLoader implements FixtureInterface
         $content_four->setParent($content_three);
         $content_four->setPublishState(2);
         $manager->persist($content_four);
+
+        $download = new Document();
+        $download->setTitle('foo');
+        $download->setFilename('document.pdf');
+        $download->setMimeType('application/pdf');
+
+        $content_download = new Content();
+        $content_download->setTitle('Content Download');
+        $content_download->setBody('<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>');
+        $content_download->addDocument($download);
+
+        $manager->persist($content_download);
 
         $manager->flush();
     }
