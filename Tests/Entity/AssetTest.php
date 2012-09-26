@@ -76,7 +76,10 @@ class AssetTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue('foo'));
         $mock_file->expects($this->any())
             ->method('getClientOriginalName')
-            ->will($this->returnValue('bar'));
+            ->will($this->returnValue('bar.jpg'));
+        $mock_file->expects($this->any())
+            ->method('guessExtension')
+            ->will($this->returnValue('jpg'));
 
         // Sets the mock class and initiates the preupload function
         $this->_asset->setFile($mock_file);
@@ -85,7 +88,10 @@ class AssetTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $this->_asset->getMimeType(),
             '->preUpload() correctly adds the mime_type when preparing file object.');
 
-        $this->assertEquals('bar', $this->_asset->getFilename(),
+        /**
+         * @see ->testSanitise() - Ensure that the file name is correctly generated.
+         */
+        $this->assertEquals('bar.jpg', $this->_asset->getFilename(),
             '->preUpload() correctly adds the filename when preparing file object.');
     }
 
@@ -122,6 +128,19 @@ class AssetTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException('Symfony\Component\HttpFoundation\File\Exception\UploadException');
         $this->_asset->upload();
+    }
+
+    /**
+     * Sanitise filename to ensure correct name is generated
+     */
+    public function testSanitise()
+    {
+        $this->assertEquals('foo-bar.png', $this->_asset->sanitise('Foo Bar.png'));
+        $this->assertEquals('foo-bar.png', $this->_asset->sanitise('Foo     Bar.png'));
+        $this->assertEquals('foo-bar.png', $this->_asset->sanitise('Foo%&$Bar.png'));
+        $this->assertEquals('-foo-bar.png', $this->_asset->sanitise('   Foo Bar.png'));
+        $this->assertEquals('-phpfoo-bar.png', $this->_asset->sanitise('#<?phpFoo Bar.png'));
+        $this->assertEquals('foo-bar-2343.png', $this->_asset->sanitise('Foo     Bar 2343.png'));
     }
 
 }

@@ -217,6 +217,27 @@ abstract class Asset
     abstract public function getUploadDir();
 
     /**
+     * Cleans a filename for saving in the database
+     *
+     * @link(Sanitizing strings to make them URL and filename safe? , http://stackoverflow.com/q/2668854/174148)
+     * @param  string $filename
+     * 
+     * @return string
+     */
+    public function sanitise($filename)
+    {
+        // Remove extension from uploaded file
+        $extension = preg_replace('/^.*\./', '', $filename);
+        $filename = preg_replace('/\.[^.]*$/', '', $filename);
+
+        // Replace all weird characters with dashes
+        $filename = preg_replace('/[^\w\-~_\.]+/u', '-', $filename);
+
+        // Only allow one dash separator at a time (and make string lowercase)
+        return mb_strtolower(preg_replace('/--+/u', '-', $filename), 'UTF-8') .'.'. $extension;
+    }
+
+    /**
      * @ORM\PrePersist()
      */
     public function preUpload()
