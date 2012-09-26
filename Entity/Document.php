@@ -117,4 +117,20 @@ class Document extends Asset
         return 'uploads/documents/'. $this->getContent()->getSlug();
     }
 
+    /**
+     * @ORM\PrePersist()
+     */
+    public function preUpload()
+    {
+        if (null === $this->getFile()) {
+            return;
+        }
+
+        $this->setMimeType($this->getFile()->getMimetype());
+
+        // set the path property to the filename where you'ved saved the file
+        $filename = $this->sanitise($this->getFile()->getClientOriginalName());
+        $this->setFilename($filename);
+    }
+
 }
