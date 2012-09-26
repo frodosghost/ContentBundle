@@ -50,6 +50,6 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('foo-bar-239-.jpg', $document->getFilename(),
             '->getFilename() corrects the filename as set when uploaded');
-
     }
+
 }
