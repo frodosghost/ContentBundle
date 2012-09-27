@@ -13,7 +13,7 @@ use AGB\Bundle\ContentBundle\Entity\Content;
  * AGB\Bundle\ContentBundle\Entity\Document
  *
  * @ORM\Table(name="content_document")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AGB\Bundle\ContentBundle\Entity\DocumentRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Document extends Asset
