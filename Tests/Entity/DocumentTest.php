@@ -77,6 +77,11 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('', $document->getExtension(),
             '->getExtension() returns the correct file extension');
+
+        $document->setFilename(NULL);
+
+        $this->assertEquals('', $document->getExtension(),
+            '->getExtension() returns the correct file extension');
     }
 
 }
