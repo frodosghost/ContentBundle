@@ -13,9 +13,12 @@
                     <div class="control-group">
                         <div class="document-list">
                         {% for document in entity.documents %}
-                            <div class="document {{ document.mimeType }}">
-                                <h4>{{ document.title }}</h4>
-                                <p>{{ document.description }}</p>
+                            <div class="document well {{ document.extension }}">
+                                <p><strong>{{ document.title }}</strong>: {{ document.description }}</p>
+                                <ul class="actions">
+                                    <li><a href="#" class="btn btn-small btn-info">Edit</a></li>
+                                    <li><a href="#" class="btn btn-small btn-danger">Remove</a></li>
+                                </ul>
                             </div>
                         {% endfor %}
                         </div>

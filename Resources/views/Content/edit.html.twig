@@ -8,14 +8,13 @@
         {{ form_widget(edit_form) }}
 
     <div class="control-group">
-        <label class="control-label" for="gallery_photos">Documents</label>
+        <label class="control-label" for="content_documents">Documents</label>
         <div class="controls">
-            <dl>
+            <ul class="documents">
             {% for document in entity.documents %}
-                <dt>{{ document.title }}</dt>
-                <dd>{{ document.description }}</dd>
+                <li class="{{ document.extension }}"><i class="icon-file"></i> {{ document.title }}</li>
             {% endfor %}
-            </dl>
+            </ul>
         </div>
     </div>
 
