@@ -84,4 +84,37 @@ class DocumentController extends Controller
         );
     }
 
+    /**
+     * Displays a form to edit an existing Document entity.
+     *
+     * @Route("/{id}/document/{document_id}/edit", name="console_document_edit")
+     * @Template()
+     */
+    public function editAction($id)
+    {
+
+    }
+
+    /**
+     * Edits an existing Content entity.
+     *
+     * @Route("/{id}/document/{document_id}/update", name="console_document_update")
+     * @Method("post")
+     * @Template("AGBContentBundle:Document:edit.html.twig")
+     */
+    public function updateAction($id)
+    {
+
+    }
+
+    /**
+     * Deletes a Content entity.
+     *
+     * @Route("/{id}/document/{document_id}/delete", name="console_document_delete")
+     */
+    public function deleteAction($id)
+    {
+
+    }
+
 }

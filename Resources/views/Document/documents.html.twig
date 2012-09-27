@@ -16,8 +16,8 @@
                             <div class="document well {{ document.extension }}">
                                 <p><strong>{{ document.title }}</strong>: {{ document.description }}</p>
                                 <ul class="actions">
-                                    <li><a href="#" class="btn btn-small btn-info">Edit</a></li>
-                                    <li><a href="#" class="btn btn-small btn-danger">Remove</a></li>
+                                    <li><a href="{{ path('console_document_edit', {id: entity.id, document_id: document.id}) }}" class="btn btn-small btn-info">Edit</a></li>
+                                    <li><a href="{{ path('console_document_delete', {id: entity.id, document_id: document.id}) }}" class="btn btn-small btn-danger">Remove</a></li>
                                 </ul>
                             </div>
                         {% endfor %}
