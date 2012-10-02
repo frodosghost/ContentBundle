@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+use AGB\Bundle\ContentBundle\Form\EventListener\AddFileFieldSubscriber;
+
 class DocumentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -16,10 +18,10 @@ class DocumentType extends AbstractType
                 'required' => false,
                 'label' => 'Description'
             ))
-            ->add('file', 'file', array(
-                'required' => true
-            ))
         ;
+
+        $subscriber = new AddFileFieldSubscriber($builder->getFormFactory());
+        $builder->addEventSubscriber($subscriber);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

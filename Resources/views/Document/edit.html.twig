@@ -1,0 +1,18 @@
+{% extends "AGBContentBundle::layout.html.twig" %}
+{% block subheadline %}Document{% endblock %}
+
+{% block content %}
+
+<form action="{{ path('console_document_update', { 'id': entity.content.id, 'document_id': entity.id }) }}" class ="form-horizontal well" method="post" {{ form_enctype(edit_form) }} novalidate>
+    <div class="manage">
+    {{ form_widget(edit_form) }}
+
+    <div class="form-actions">
+        <a href="{{ path('console_project_documents', { 'id': entity.content.id }) }}" class="btn">Back to Documents</a>
+        <button type="submit" class="btn btn-primary">Edit</button>
+</form>
+        <a href="{{ path('console_document_delete', { 'id': entity.content.id, 'document_id': entity.id }) }}" class="btn btn-danger">Remove</a>
+    </div>
+    </div>
+
+{% endblock %}

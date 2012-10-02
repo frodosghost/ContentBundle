@@ -51,9 +51,6 @@ abstract class Asset
      * @var string $file
      *
      * @Assert\File(maxSize="6000000")
-     * @Assert\NotBlank(
-     *     message = "Please select a file to upload"
-     * )
      */
     private $file;
 

@@ -90,9 +90,23 @@ class DocumentController extends Controller
      * @Route("/{id}/document/{document_id}/edit", name="console_document_edit")
      * @Template()
      */
-    public function editAction($id)
+    public function editAction($id, $document_id)
     {
+        $em = $this->getDoctrine()->getEntityManager();
 
+        $document = $em->getRepository('AGBContentBundle:Document')
+            ->findOneByIdJoinContent($document_id);
+
+        if (!$document) {
+            throw $this->createNotFoundException('Unable to find Document entity.');
+        }
+
+        $editForm = $this->createForm(new DocumentType(), $document);
+
+        return array(
+            'entity'      => $document,
+            'edit_form'   => $editForm->createView()
+        );
     }
 
     /**
@@ -102,9 +116,34 @@ class DocumentController extends Controller
      * @Method("post")
      * @Template("AGBContentBundle:Document:edit.html.twig")
      */
-    public function updateAction($id)
+    public function updateAction($id, $document_id)
     {
+        $em = $this->getDoctrine()->getEntityManager();
 
+        $document = $em->getRepository('AGBContentBundle:Document')
+            ->findOneByIdJoinContent($document_id);
+
+        if (!$document) {
+            throw $this->createNotFoundException('Unable to find Document entity.');
+        }
+
+        $editForm = $this->createForm(new DocumentType(), $document);
+
+        $request = $this->getRequest();
+
+        $editForm->bindRequest($request);
+
+        if ($editForm->isValid()) {
+            $em->persist($document);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('console_document_edit', array('id' => $id, 'document_id' => $document_id)));
+        }
+
+        return array(
+            'entity'      => $document,
+            'edit_form'   => $editForm->createView()
+        );
     }
 
     /**

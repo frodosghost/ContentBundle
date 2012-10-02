@@ -55,8 +55,7 @@ class ContentControllerTest extends WebTestCase
 
         $client->submit($form);
         $crawler = $client->followRedirect();
-        //print_r($client->getResponse()->getContent());
-        //exit;
+
         // Check the element contains an attribute with value equals "Foo"
         $this->assertTrue($crawler->filter('[value="Foo"]')->count() > 0);
         $this->assertEquals(4, $crawler->filter('#content_publish_state option:contains("Archive")')->attr('value'),

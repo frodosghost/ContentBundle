@@ -60,6 +60,18 @@ class DocumentControllerTest extends WebTestCase
         $this->assertEquals(1, $crawler->filter('.document-list')->children()->count(),
             'The Document List has been updated with a single upload.');
 
+        $crawler = $client->click($crawler->selectLink('Edit')->last()->link());
+
+        $form = $crawler->selectButton('Edit')->form(array(
+            'document[title]' => 'Bar'
+        ));
+
+        $client->submit($form);
+        $crawler = $client->followRedirect();
+
+        $this->assertTrue($crawler->filter('[value="Bar"]')->count() > 0,
+            'Form has been updated.');
+
         /* Comment included so can return to checking form validation.
          *
            $form = $crawler->selectButton('Add Document')->form(array(
