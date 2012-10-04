@@ -151,9 +151,19 @@ class DocumentController extends Controller
      *
      * @Route("/{id}/document/{document_id}/delete", name="console_document_delete")
      */
-    public function deleteAction($id)
+    public function deleteAction($id, $document_id)
     {
+        $em = $this->getDoctrine()->getEntityManager();
+        $entity = $em->getRepository('AGBContentBundle:Document')->find($document_id);
 
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Document entity.');
+        }
+
+        $em->remove($entity);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('console_project_documents', array('id' => $id)));
     }
 
 }

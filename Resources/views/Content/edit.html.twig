@@ -12,7 +12,7 @@
         <div class="controls">
             <ul class="documents">
             {% for document in entity.documents %}
-                <li class="{{ document.extension }}"><i class="icon-file"></i> {{ document.title }}</li>
+                <li class="{{ document.extension }}"><i class="icon-file"></i> {{ document.title }} - <small><a href="{{ asset(document.webPath) }}" target="_document">view</a></small></li>
             {% endfor %}
             </ul>
         </div>

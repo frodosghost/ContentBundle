@@ -27,6 +27,11 @@ class AddFileFieldSubscriber implements EventSubscriberInterface
         );
     }
 
+    /**
+     * Adds the file field to the form if create form.
+     * 
+     * @param  DataEvent $event
+     */
     public function preSetData(DataEvent $event)
     {
         $data = $event->getData();
@@ -45,6 +50,11 @@ class AddFileFieldSubscriber implements EventSubscriberInterface
         }
     }
 
+    /**
+     * Determines if the file has been provided, and displays error if not provided.
+     * 
+     * @param  DataEvent $event
+     */
     public function postBind(DataEvent $event)
     {
         $data = $event->getData();
