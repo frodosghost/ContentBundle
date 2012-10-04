@@ -1,12 +1,12 @@
 <?php
 
-namespace AGB\Bundle\ContentBundle\Tests\DataFixtures\ORM;
+namespace Manhattan\Bundle\ContentBundle\Tests\DataFixtures\ORM;
  
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-use AGB\Bundle\ContentBundle\Entity\Content;
-use AGB\Bundle\ContentBundle\Entity\Document;
+use Manhattan\Bundle\ContentBundle\Entity\Content;
+use Manhattan\Bundle\ContentBundle\Entity\Document;
  
 class FixtureLoader implements FixtureInterface
 {

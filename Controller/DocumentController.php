@@ -1,15 +1,15 @@
 <?php
 
-namespace AGB\Bundle\ContentBundle\Controller;
+namespace Manhattan\Bundle\ContentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use AGB\Bundle\ContentBundle\Entity\Content;
-use AGB\Bundle\ContentBundle\Entity\Document;
-use AGB\Bundle\ContentBundle\Form\DocumentType;
+use Manhattan\Bundle\ContentBundle\Entity\Content;
+use Manhattan\Bundle\ContentBundle\Entity\Document;
+use Manhattan\Bundle\ContentBundle\Form\DocumentType;
 
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
@@ -30,7 +30,7 @@ class DocumentController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $content = $em->getRepository('AGBContentBundle:Content')
+        $content = $em->getRepository('ManhattanContentBundle:Content')
             ->findOneByIdJoinDocuments($id);
 
         if (!$content) {
@@ -52,13 +52,13 @@ class DocumentController extends Controller
      *
      * @Route("/{id}/document/create", name="console_document_create")
      * @Method("post")
-     * @Template("AGBContentBundle:Document:documents.html.twig")
+     * @Template("ManhattanContentBundle:Document:documents.html.twig")
      */
     public function createAction($id)
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $content = $em->getRepository('AGBContentBundle:Content')->findOneById($id);
+        $content = $em->getRepository('ManhattanContentBundle:Content')->findOneById($id);
 
         if (!$content) {
             throw $this->createNotFoundException('Unable to find Content entity.');
@@ -94,7 +94,7 @@ class DocumentController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $document = $em->getRepository('AGBContentBundle:Document')
+        $document = $em->getRepository('ManhattanContentBundle:Document')
             ->findOneByIdJoinContent($document_id);
 
         if (!$document) {
@@ -114,13 +114,13 @@ class DocumentController extends Controller
      *
      * @Route("/{id}/document/{document_id}/update", name="console_document_update")
      * @Method("post")
-     * @Template("AGBContentBundle:Document:edit.html.twig")
+     * @Template("ManhattanContentBundle:Document:edit.html.twig")
      */
     public function updateAction($id, $document_id)
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $document = $em->getRepository('AGBContentBundle:Document')
+        $document = $em->getRepository('ManhattanContentBundle:Document')
             ->findOneByIdJoinContent($document_id);
 
         if (!$document) {
@@ -154,7 +154,7 @@ class DocumentController extends Controller
     public function deleteAction($id, $document_id)
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $entity = $em->getRepository('AGBContentBundle:Document')->find($document_id);
+        $entity = $em->getRepository('ManhattanContentBundle:Document')->find($document_id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Document entity.');

@@ -1,6 +1,6 @@
 <?php
 
-namespace AGB\Bundle\ContentBundle\Tests\Entity;
+namespace Manhattan\Bundle\ContentBundle\Tests\Entity;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 
@@ -19,7 +19,7 @@ class ContentRepositoryFunctionalTest extends WebTestCase
 
         // Add data with Fixtures to include post listings
         $this->loadFixtures(array(
-            'AGB\Bundle\ContentBundle\Tests\DataFixtures\ORM\FixtureLoader'
+            'Manhattan\Bundle\ContentBundle\Tests\DataFixtures\ORM\FixtureLoader'
         ));
     }
 
@@ -34,7 +34,7 @@ class ContentRepositoryFunctionalTest extends WebTestCase
     public function testNoPublishStateSet()
     {
         $content = $this->em
-            ->getRepository('AGBContentBundle:Content')
+            ->getRepository('ManhattanContentBundle:Content')
             ->findOneBySlugInTree('foo');
 
         $this->assertEquals(NULL, $content,
@@ -47,11 +47,11 @@ class ContentRepositoryFunctionalTest extends WebTestCase
     public function testPublishStateSet()
     {
         $content = $this->em
-            ->getRepository('AGBContentBundle:Content')
+            ->getRepository('ManhattanContentBundle:Content')
             ->setPublishState(2)
             ->findOneBySlugInTree('foo');
 
-        $this->assertInstanceOf('AGB\Bundle\ContentBundle\Entity\Content', $content,
+        $this->assertInstanceOf('Manhattan\Bundle\ContentBundle\Entity\Content', $content,
             'findOneBySlugInTree() returns Content object with query');
     }
 
@@ -61,10 +61,10 @@ class ContentRepositoryFunctionalTest extends WebTestCase
     public function testDraftPublishState()
     {
         $content = $this->em
-            ->getRepository('AGBContentBundle:Content')
+            ->getRepository('ManhattanContentBundle:Content')
             ->findOneBySlugInTree('foo-bar');
 
-        $this->assertInstanceOf('AGB\Bundle\ContentBundle\Entity\Content', $content,
+        $this->assertInstanceOf('Manhattan\Bundle\ContentBundle\Entity\Content', $content,
             'findOneBySlugInTree() returns Content object that is set as a Draft');
     }
 
@@ -74,11 +74,11 @@ class ContentRepositoryFunctionalTest extends WebTestCase
     public function testTwoPublishStateSet()
     {
         $content = $this->em
-            ->getRepository('AGBContentBundle:Content')
+            ->getRepository('ManhattanContentBundle:Content')
             ->setPublishState(2)
             ->findOneByTwoSlugsInTree('foo', 'bar');
 
-        $this->assertInstanceOf('AGB\Bundle\ContentBundle\Entity\Content', $content,
+        $this->assertInstanceOf('Manhattan\Bundle\ContentBundle\Entity\Content', $content,
             'findOneByTwoSlugsInTree() returns Content object with query');
     }
 
@@ -88,7 +88,7 @@ class ContentRepositoryFunctionalTest extends WebTestCase
     public function testTwoUnpublishedRootNode()
     {
         $content = $this->em
-            ->getRepository('AGBContentBundle:Content')
+            ->getRepository('ManhattanContentBundle:Content')
             ->setPublishState(2)
             ->findOneByTwoSlugsInTree('foo-bar', 'bar-foo');
 
@@ -102,11 +102,11 @@ class ContentRepositoryFunctionalTest extends WebTestCase
     public function testFindByIdJoinDocumentsNone()
     {
         $content = $this->em
-            ->getRepository('AGBContentBundle:Content')
+            ->getRepository('ManhattanContentBundle:Content')
             ->setPublishState(2)
             ->findOneByIdJoinDocuments(2);
 
-        $this->assertInstanceOf('AGB\Bundle\ContentBundle\Entity\Content', $content,
+        $this->assertInstanceOf('Manhattan\Bundle\ContentBundle\Entity\Content', $content,
             'findOneByIdJoinDocuments() returns Content object with query');
 
         $this->assertEquals(0, $content->getDocuments()->count(),
@@ -119,16 +119,16 @@ class ContentRepositoryFunctionalTest extends WebTestCase
     public function testFindByIdJoinDocumentsOne()
     {
         $content = $this->em
-            ->getRepository('AGBContentBundle:Content')
+            ->getRepository('ManhattanContentBundle:Content')
             ->findOneByIdJoinDocuments(5);
 
-        $this->assertInstanceOf('AGB\Bundle\ContentBundle\Entity\Content', $content,
+        $this->assertInstanceOf('Manhattan\Bundle\ContentBundle\Entity\Content', $content,
             'findOneByIdJoinDocuments() returns Content object with query');
 
         $this->assertEquals(1, $content->getDocuments()->count(),
             '->getDocuments() returns a count of 1 when one document is attached.');
 
-        $this->assertInstanceOf('AGB\Bundle\ContentBundle\Entity\Document', $content->getDocuments()->first(),
+        $this->assertInstanceOf('Manhattan\Bundle\ContentBundle\Entity\Document', $content->getDocuments()->first(),
             '->getDocuments() First element is returned matches the class Document');
     }
 

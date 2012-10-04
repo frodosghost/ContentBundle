@@ -1,6 +1,6 @@
 <?php
 
-namespace AGB\Bundle\ContentBundle\Tests\Controller;
+namespace Manhattan\Bundle\ContentBundle\Tests\Controller;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
