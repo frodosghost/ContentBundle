@@ -143,4 +143,35 @@ class AssetTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo-bar-2343.png', $this->_asset->sanitise('Foo     Bar 2343.png'));
     }
 
+    /**
+     * Tests the extension as returned from the Filename
+     */
+    public function testGetExtension()
+    {
+        $this->_asset->setFilename('foo-bar-239-.jpg');
+
+        $this->assertEquals('jpg', $this->_asset->getExtension(),
+            '->getExtension() returns the correct file extension');
+
+        $this->_asset->setFilename('foo-bar-239-.file.png');
+
+        $this->assertEquals('png', $this->_asset->getExtension(),
+            '->getExtension() returns the correct file extension');
+
+        $this->_asset->setFilename('foo-bar-239-.');
+
+        $this->assertEquals('', $this->_asset->getExtension(),
+            '->getExtension() returns the correct file extension');
+
+        $this->_asset->setFilename('');
+
+        $this->assertEquals('', $this->_asset->getExtension(),
+            '->getExtension() returns the correct file extension');
+
+        $this->_asset->setFilename(NULL);
+
+        $this->assertEquals('', $this->_asset->getExtension(),
+            '->getExtension() returns the correct file extension');
+    }
+
 }

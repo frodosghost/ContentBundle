@@ -52,36 +52,4 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
             '->getFilename() corrects the filename as set when uploaded');
     }
 
-    /**
-     * Tests the extension as returned from the Filename
-     */
-    public function testGetExtension()
-    {
-        $document = new Document();
-        $document->setFilename('foo-bar-239-.jpg');
-
-        $this->assertEquals('jpg', $document->getExtension(),
-            '->getExtension() returns the correct file extension');
-
-        $document->setFilename('foo-bar-239-.file.png');
-
-        $this->assertEquals('png', $document->getExtension(),
-            '->getExtension() returns the correct file extension');
-
-        $document->setFilename('foo-bar-239-.');
-
-        $this->assertEquals('', $document->getExtension(),
-            '->getExtension() returns the correct file extension');
-
-        $document->setFilename('');
-
-        $this->assertEquals('', $document->getExtension(),
-            '->getExtension() returns the correct file extension');
-
-        $document->setFilename(NULL);
-
-        $this->assertEquals('', $document->getExtension(),
-            '->getExtension() returns the correct file extension');
-    }
-
 }

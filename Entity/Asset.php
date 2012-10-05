@@ -236,6 +236,16 @@ abstract class Asset
     }
 
     /**
+     * Returns file extension
+     *
+     * @return string
+     */
+    public function getExtension()
+    {
+        return preg_replace('/^.*\./', '', $this->getFilename());;
+    }
+
+    /**
      * @ORM\PrePersist()
      */
     public function preUpload()
