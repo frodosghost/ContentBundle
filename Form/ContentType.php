@@ -27,6 +27,13 @@ class ContentType extends AbstractType
                 ), 'required' => true,
                 'label' => 'Body'
             ))
+            ->add('center_download', 'choice', array(
+                'choices' => array(
+                    0 => 'Sidebar Display',
+                    1 => 'Main Content'
+                ),
+                'label' => 'Downloads Display Location'
+            ))
             ->add('publish_state', 'choice', array(
                 'choices' => $options['data']->getStaticArray()
             ))

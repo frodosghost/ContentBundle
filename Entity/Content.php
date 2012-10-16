@@ -113,6 +113,13 @@ class Content
     private $documents;
 
     /**
+     * var integer $center_download
+     * 
+     * @ORM\Column(name="center_download", type="integer")
+     */
+    private $center_download;
+
+    /**
      * var integer $publish_state
      * 
      * @ORM\Column(name="publish_state", type="integer")
@@ -143,6 +150,7 @@ class Content
         $this->images = new ArrayCollection();
         $this->documents = new ArrayCollection();
         $this->publish_state = 1;
+        $this->center_download = 0;
     }
 
     public function __toString()
@@ -343,6 +351,30 @@ class Content
     public function setPublishState($publish_state)
     {
         $this->publish_state = $publish_state;
+
+        return $this;
+    }
+
+    /**
+     * Get center_download
+     *
+     * @return integer 
+     */
+    public function getCenterDownload()
+    {
+        return $this->center_download;
+    }
+
+    /**
+     * Set center_download
+     *
+     * @param integer $center_download
+     */
+    public function setCenterDownload($center_download)
+    {
+        $this->center_download = $center_download;
+
+        return $this;
     }
 
     /**
