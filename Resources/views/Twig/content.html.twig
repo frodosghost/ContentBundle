@@ -1,0 +1,14 @@
+{% block render_downloads %}
+{% spaceless %}
+{% if documents %}
+<div class="{{ wrapper_class }}">
+    <h5>Downloads</h5>
+    <ul>
+        {% for document in documents %}
+        <li class="{{ document.extension }}"> <a href="{{ asset(document.webPath) }}" target="_document">{{ document.title }} <span>March 2012</span></a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% endspaceless %}
+{% endblock %}
