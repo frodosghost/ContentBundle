@@ -4,6 +4,7 @@ namespace Manhattan\Bundle\ContentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -293,7 +294,7 @@ class Content
      *
      * @param Doctrine\Common\Collections\ArrayCollection $images
      */
-    public function setImages(\Doctrine\Common\Collections\Collection $images)
+    public function setImages(Collection $images)
     {
         foreach ($images as $image) {
             $image->addContent($this);
