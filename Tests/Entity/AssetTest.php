@@ -1,8 +1,8 @@
 <?php
 
-namespace AGB\Bundle\ContentBundle\Tests\Entity;
+namespace Manhattan\Bundle\ContentBundle\Tests\Entity;
 
-use AGB\Bundle\ContentBundle\Entity\Asset;
+use Manhattan\Bundle\ContentBundle\Entity\Asset;
 
 /**
  * AssetTest
@@ -15,7 +15,7 @@ class AssetTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $stub = $this->getMockForAbstractClass('AGB\Bundle\ContentBundle\Entity\Asset');
+        $stub = $this->getMockForAbstractClass('Manhattan\Bundle\ContentBundle\Entity\Asset');
         $this->_asset = $stub;
     }
 

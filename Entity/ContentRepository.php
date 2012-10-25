@@ -1,6 +1,6 @@
 <?php
 
-namespace AGB\Bundle\ContentBundle\Entity;
+namespace Manhattan\Bundle\ContentBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
@@ -40,7 +40,7 @@ class ContentRepository extends NestedTreeRepository
     {
         $query = $this->getEntityManager()
             ->createQuery('
-                SELECT content, image FROM AGBContentBundle:Content content
+                SELECT content, image FROM ManhattanContentBundle:Content content
                 LEFT JOIN content.images image
                 WHERE content.lvl = 0 AND content.slug = :slug
                     AND content.publish_state = :publish_state'
@@ -67,7 +67,7 @@ class ContentRepository extends NestedTreeRepository
 	{
 		$query = $this->getEntityManager()
             ->createQuery('
-                SELECT content, parent, image FROM AGBContentBundle:Content content
+                SELECT content, parent, image FROM ManhattanContentBundle:Content content
                 LEFT JOIN content.images image
                 LEFT JOIN content.parent parent
                 WHERE content.lvl = 1 AND content.slug = :slug_two
@@ -100,7 +100,7 @@ class ContentRepository extends NestedTreeRepository
     {
         $query = $this->getEntityManager()
             ->createQuery('
-                SELECT content, document FROM AGBContentBundle:Content content
+                SELECT content, document FROM ManhattanContentBundle:Content content
                 LEFT JOIN content.documents document
                 WHERE content.id = :id'
             )->setParameters(array(

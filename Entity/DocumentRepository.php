@@ -1,6 +1,6 @@
 <?php
 
-namespace AGB\Bundle\ContentBundle\Entity;
+namespace Manhattan\Bundle\ContentBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -22,7 +22,7 @@ class DocumentRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
             ->createQuery('
-                SELECT document, content FROM AGBContentBundle:Document document
+                SELECT document, content FROM ManhattanContentBundle:Document document
                 LEFT JOIN document.content content
                 WHERE document.id = :id'
             )->setParameters(array(

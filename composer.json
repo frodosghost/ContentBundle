@@ -1,7 +1,7 @@
 {
-    "name": "agb/content-bundle",
+    "name": "manhattan/content-bundle",
     "type": "symfony-bundle",
-    "description": "Easy integration of content bundle for AGB Content in Symfony2",
+    "description": "Easy integration of content bundle for Manhattan Content in Symfony2",
     "keywords": ["content", "layout"],
     "license": "MIT",
     "authors": [
@@ -12,9 +12,9 @@
         }
     ],
     "autoload": {
-        "psr-0": { "AGB\\Bundle\\ContentBundle": "" }
+        "psr-0": { "Manhattan\\Bundle\\ContentBundle": "" }
     },
-    "target-dir": "AGB/Bundle/ContentBundle",
+    "target-dir": "Manhattan/Bundle/ContentBundle",
     "require": {
         "php": ">=5.3.2",
         "symfony/framework-bundle": "2.*"

@@ -1,10 +1,10 @@
 <?php
 
 /*
- * This file is part of the AGB Web Bundle.
+ * This file is part of the Manhattan Web Bundle.
  */
 
-namespace AGB\Bundle\ContentBundle\Twig;
+namespace Manhattan\Bundle\ContentBundle\Twig;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -86,6 +86,6 @@ class ContentTwigExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'agb_content_twig';
+        return 'Manhattan_content_twig';
     }
 }

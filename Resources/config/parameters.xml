@@ -4,9 +4,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <parameters>
-        <parameter key="agb_content.constant.draft" type="constant">AGB\Bundle\ContentBundle\Entity\Content::DRAFT</parameter>
-        <parameter key="agb_content.constant.publish" type="constant">AGB\Bundle\ContentBundle\Entity\Content::PUBLISH</parameter>
-        <parameter key="agb_content.constant.archive" type="constant">AGB\Bundle\ContentBundle\Entity\Content::ARCHIVE</parameter>
+        <parameter key="Manhattan_content.constant.draft" type="constant">Manhattan\Bundle\ContentBundle\Entity\Content::DRAFT</parameter>
+        <parameter key="Manhattan_content.constant.publish" type="constant">Manhattan\Bundle\ContentBundle\Entity\Content::PUBLISH</parameter>
+        <parameter key="Manhattan_content.constant.archive" type="constant">Manhattan\Bundle\ContentBundle\Entity\Content::ARCHIVE</parameter>
     </parameters>
 
 </container>

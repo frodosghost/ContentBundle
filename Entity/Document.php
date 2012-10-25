@@ -1,19 +1,19 @@
 <?php
 
-namespace AGB\Bundle\ContentBundle\Entity;
+namespace Manhattan\Bundle\ContentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
-use AGB\Bundle\ContentBundle\Entity\Asset;
-use AGB\Bundle\ContentBundle\Entity\Content;
+use Manhattan\Bundle\ContentBundle\Entity\Asset;
+use Manhattan\Bundle\ContentBundle\Entity\Content;
 
 /**
- * AGB\Bundle\ContentBundle\Entity\Document
+ * Manhattan\Bundle\ContentBundle\Entity\Document
  *
  * @ORM\Table(name="content_document")
- * @ORM\Entity(repositoryClass="AGB\Bundle\ContentBundle\Entity\DocumentRepository")
+ * @ORM\Entity(repositoryClass="Manhattan\Bundle\ContentBundle\Entity\DocumentRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Document extends Asset
@@ -94,7 +94,7 @@ class Document extends Asset
     /**
      * Add content
      *
-     * @param AGB\Bundle\ContentBundle\Entity\Content $content
+     * @param Manhattan\Bundle\ContentBundle\Entity\Content $content
      */
     public function addContent(Content $content)
     {
@@ -105,7 +105,7 @@ class Document extends Asset
     /**
      * Get content
      *
-     * @return AGB\Bundle\ContentBundle\Entity\Content
+     * @return Manhattan\Bundle\ContentBundle\Entity\Content
      */
     public function getContent()
     {

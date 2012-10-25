@@ -1,6 +1,6 @@
 <?php
 
-namespace AGB\Bundle\ContentBundle\Entity;
+namespace Manhattan\Bundle\ContentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\Exception\UploadException;
 
 /**
- * AGB\Bundle\ContentBundle\Entity\Asset
+ * Manhattan\Bundle\ContentBundle\Entity\Asset
  *
  * @ORM\Table(name="asset")
  * @ORM\Entity
@@ -16,10 +16,9 @@ use Symfony\Component\HttpFoundation\File\Exception\UploadException;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="class_name", type="string")
  * @ORM\DiscriminatorMap({
- * "content_image" = "AGB\Bundle\ContentBundle\Entity\Image",
- * "content_document" = "AGB\Bundle\ContentBundle\Entity\Document",
- * "news_image" = "AGB\Bundle\NewsBundle\Entity\Image",
- * "slideshow_image" = "AGB\Bundle\SlideshowBundle\Entity\Image",
+ * "content_image" = "Manhattan\Bundle\ContentBundle\Entity\Image",
+ * "content_document" = "Manhattan\Bundle\ContentBundle\Entity\Document",
+ * "post_image" = "Manhattan\Bundle\PostsBundle\Entity\Image"
  * })
  */
 abstract class Asset

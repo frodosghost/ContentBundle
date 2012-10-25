@@ -1,7 +1,7 @@
-AGBContent:
-    resource: "@AGBContentBundle/Controller/ContentController.php"
+ManhattanContent:
+    resource: "@ManhattanContentBundle/Controller/ContentController.php"
     type:     annotation
 
-AGBContentDocuments:
-    resource: "@AGBContentBundle/Controller/DocumentController.php"
+ManhattanContentDocuments:
+    resource: "@ManhattanContentBundle/Controller/DocumentController.php"
     type:     annotation

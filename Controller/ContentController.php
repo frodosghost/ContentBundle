@@ -1,16 +1,16 @@
 <?php
 
-namespace AGB\Bundle\ContentBundle\Controller;
+namespace Manhattan\Bundle\ContentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use AGB\Bundle\ContentBundle\Entity\Content;
-use AGB\Bundle\ContentBundle\Form\ContentType;
+use Manhattan\Bundle\ContentBundle\Entity\Content;
+use Manhattan\Bundle\ContentBundle\Form\ContentType;
 use Symfony\Bridge\Doctrine\Form\ChoiceList\EntityChoiceList;
-use AGB\Bundle\ContentBundle\Form\ChoiceList\ContentEntityLoader;
+use Manhattan\Bundle\ContentBundle\Form\ChoiceList\ContentEntityLoader;
 
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
@@ -32,7 +32,7 @@ class ContentController extends Controller
         $controller = $this;
         $em = $this->getDoctrine()->getManager();
 
-        $repository = $em->getRepository('AGBContentBundle:Content');
+        $repository = $em->getRepository('ManhattanContentBundle:Content');
         $htmlTree = $repository->childrenHierarchy(
             null,  /* starting from root nodes */
             false, /* load all children, not only direct */
@@ -78,7 +78,7 @@ class ContentController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entity = $em->getRepository('AGBContentBundle:Content')->find($id);
+        $entity = $em->getRepository('ManhattanContentBundle:Content')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Content entity.');
@@ -113,7 +113,7 @@ class ContentController extends Controller
      *
      * @Route("/create", name="console_content_create")
      * @Method("post")
-     * @Template("AGBContentBundle:Content:new.html.twig")
+     * @Template("ManhattanContentBundle:Content:new.html.twig")
      */
     public function createAction()
     {
@@ -147,7 +147,7 @@ class ContentController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entity = $em->getRepository('AGBContentBundle:Content')->find($id);
+        $entity = $em->getRepository('ManhattanContentBundle:Content')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Content entity.');
@@ -156,7 +156,7 @@ class ContentController extends Controller
         $choice_loader = new ContentEntityLoader($this, $em, $entity);
         $choice_list = new EntityChoiceList(
             $em,
-            'AGB\Bundle\ContentBundle\Entity\Content',
+            'Manhattan\Bundle\ContentBundle\Entity\Content',
             'title',
             $choice_loader
         );
@@ -176,13 +176,13 @@ class ContentController extends Controller
      *
      * @Route("/{id}/update", name="console_content_update")
      * @Method("post")
-     * @Template("AGBContentBundle:Content:edit.html.twig")
+     * @Template("ManhattanContentBundle:Content:edit.html.twig")
      */
     public function updateAction($id)
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entity = $em->getRepository('AGBContentBundle:Content')->find($id);
+        $entity = $em->getRepository('ManhattanContentBundle:Content')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Content entity.');
@@ -191,7 +191,7 @@ class ContentController extends Controller
         $choice_loader = new ContentEntityLoader($this, $em, $entity);
         $choice_list = new EntityChoiceList(
             $em,
-            'AGB\Bundle\ContentBundle\Entity\Content',
+            'Manhattan\Bundle\ContentBundle\Entity\Content',
             'title',
             $choice_loader
         );
@@ -232,7 +232,7 @@ class ContentController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
-            $entity = $em->getRepository('AGBContentBundle:Content')->find($id);
+            $entity = $em->getRepository('ManhattanContentBundle:Content')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Content entity.');

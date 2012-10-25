@@ -1,6 +1,6 @@
 <?php
 
-namespace AGB\Bundle\ContentBundle\Entity;
+namespace Manhattan\Bundle\ContentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,12 +8,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * AGB\Bundle\ContentBundle\Entity\Content
+ * Manhattan\Bundle\ContentBundle\Entity\Content
  *
  * @ORM\Table(name="content")
  * @ORM\HasLifecycleCallbacks
  * @Gedmo\Tree(type="nested")
- * @ORM\Entity(repositoryClass="AGB\Bundle\ContentBundle\Entity\ContentRepository")
+ * @ORM\Entity(repositoryClass="Manhattan\Bundle\ContentBundle\Entity\ContentRepository")
  */
 class Content
 {
@@ -107,7 +107,7 @@ class Content
 
     /**
      * @ORM\OneToMany(
-     *     targetEntity="AGB\Bundle\ContentBundle\Entity\Document", mappedBy="content", cascade={"persist", "remove"}
+     *     targetEntity="Manhattan\Bundle\ContentBundle\Entity\Document", mappedBy="content", cascade={"persist", "remove"}
      * )
      */
     private $documents;
@@ -289,7 +289,7 @@ class Content
     /**
      * Add Image
      *
-     * @param AGB\Bundle\ContentBundle\Entity\Image $image
+     * @param Manhattan\Bundle\ContentBundle\Entity\Image $image
      */
     public function addImage(Image $image)
     {
@@ -323,7 +323,7 @@ class Content
     /**
      * Add Document
      *
-     * @param AGB\Bundle\ContentBundle\Entity\Document $document
+     * @param Manhattan\Bundle\ContentBundle\Entity\Document $document
      */
     public function addDocument(Document $document)
     {
