@@ -16,7 +16,7 @@
     },
     "target-dir": "Manhattan/Bundle/ContentBundle",
     "require": {
-        "php": ">=5.3.2",
+        "php": ">=5.3.3",
         "symfony/framework-bundle": "2.*"
     }
 }

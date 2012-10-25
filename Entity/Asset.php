@@ -17,8 +17,8 @@ use Symfony\Component\HttpFoundation\File\Exception\UploadException;
  * @ORM\DiscriminatorColumn(name="class_name", type="string")
  * @ORM\DiscriminatorMap({
  * "content_image" = "Manhattan\Bundle\ContentBundle\Entity\Image",
- * "content_document" = "Manhattan\Bundle\ContentBundle\Entity\Document",
- * "post_image" = "Manhattan\Bundle\PostsBundle\Entity\Image"
+ * "posts_image" = "Manhattan\Bundle\PostsBundle\Entity\Image",
+ * "content_document" = "Manhattan\Bundle\ContentBundle\Entity\Document"
  * })
  */
 abstract class Asset
@@ -234,6 +234,16 @@ abstract class Asset
 
         // Only allow one dash separator at a time (and make string lowercase)
         return mb_strtolower(preg_replace('/--+/u', '-', $filename), 'UTF-8') .'.'. $extension;
+    }
+
+    /**
+     * Returns file extension
+     *
+     * @return string
+     */
+    public function getExtension()
+    {
+        return preg_replace('/^.*\./', '', $this->getFilename());;
     }
 
     /**

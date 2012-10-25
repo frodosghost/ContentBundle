@@ -17,7 +17,7 @@ services:
         calls:
             - [ setAnnotationReader, [ @annotation_reader ] ]
 
-    Manhattan_console_bundle.configure_menu_listener:
+    manhattan_console_bundle.configure_menu_listener:
         class: Manhattan\Bundle\ContentBundle\EventListener\ConfigureMenuListener
         tags:
           - { name: kernel.event_listener, event: manhattan_console_bundle.menu_configure, method: onMenuConfigure }

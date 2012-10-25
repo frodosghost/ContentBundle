@@ -112,16 +112,6 @@ class Document extends Asset
         return $this->content;
     }
 
-    /**
-     * Returns file extension
-     *
-     * @return string
-     */
-    public function getExtension()
-    {
-        return preg_replace('/^.*\./', '', $this->getFilename());;
-    }
-
     public function getUploadDir()
     {
         return 'uploads/documents/'. $this->getContent()->getSlug();
