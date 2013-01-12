@@ -19,7 +19,7 @@ class PublicController extends Controller
     /**
      * Displays the Homepage
      *
-     * @Route("/", name="homepage")
+     * @Route("", name="homepage")
      * @Template()
      */
     public function homepageAction()

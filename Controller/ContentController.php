@@ -24,7 +24,7 @@ class ContentController extends Controller
     /**
      * Lists all Content entities.
      *
-     * @Route("/", name="console_content")
+     * @Route("", name="console_content")
      * @Template()
      */
     public function indexAction()
