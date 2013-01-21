@@ -1,6 +1,6 @@
 {% block render_downloads %}
 {% spaceless %}
-{% if documents %}
+{% if documents|length > 0 %}
 <div class="{{ wrapper_class }}">
     <h5>Downloads</h5>
     <ul>
