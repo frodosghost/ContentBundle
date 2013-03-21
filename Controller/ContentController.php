@@ -25,6 +25,7 @@ class ContentController extends Controller
      * Lists all Content entities.
      *
      * @Route("", name="console_content")
+     * @Secure(roles="ROLE_ADMIN")
      * @Template()
      */
     public function indexAction()
@@ -72,6 +73,7 @@ class ContentController extends Controller
      * Finds and displays a Content entity.
      *
      * @Route("/{id}/show", name="console_content_show")
+     * @Secure(roles="ROLE_ADMIN")
      * @Template()
      */
     public function showAction($id)
@@ -95,6 +97,7 @@ class ContentController extends Controller
      * Displays a form to create a new Content entity.
      *
      * @Route("/new", name="console_content_new")
+     * @Secure(roles="ROLE_ADMIN")
      * @Template()
      */
     public function newAction()
@@ -112,6 +115,7 @@ class ContentController extends Controller
      * Creates a new Content entity.
      *
      * @Route("/create", name="console_content_create")
+     * @Secure(roles="ROLE_ADMIN")
      * @Method("post")
      * @Template("ManhattanContentBundle:Content:new.html.twig")
      */
@@ -141,6 +145,7 @@ class ContentController extends Controller
      * Displays a form to edit an existing Content entity.
      *
      * @Route("/{id}/edit", name="console_content_edit")
+     * @Secure(roles="ROLE_ADMIN")
      * @Template()
      */
     public function editAction($id)
@@ -175,6 +180,7 @@ class ContentController extends Controller
      * Edits an existing Content entity.
      *
      * @Route("/{id}/update", name="console_content_update")
+     * @Secure(roles="ROLE_ADMIN")
      * @Method("post")
      * @Template("ManhattanContentBundle:Content:edit.html.twig")
      */
@@ -221,6 +227,7 @@ class ContentController extends Controller
      * Deletes a Content entity.
      *
      * @Route("/{id}/delete", name="console_content_delete")
+     * @Secure(roles="ROLE_ADMIN")
      * @Method("post")
      */
     public function deleteAction($id)

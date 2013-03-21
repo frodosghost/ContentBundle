@@ -24,6 +24,7 @@ class DocumentController extends Controller
      * Finds and displays documents for a Content.
      *
      * @Route("/{id}/documents", name="console_project_documents")
+     * @Secure(roles="ROLE_ADMIN")
      * @Template()
      */
     public function documentsAction($id)
@@ -51,6 +52,7 @@ class DocumentController extends Controller
      * Creates a new Photo entity.
      *
      * @Route("/{id}/document/create", name="console_document_create")
+     * @Secure(roles="ROLE_ADMIN")
      * @Method("post")
      * @Template("ManhattanContentBundle:Document:documents.html.twig")
      */
@@ -88,6 +90,7 @@ class DocumentController extends Controller
      * Displays a form to edit an existing Document entity.
      *
      * @Route("/{id}/document/{document_id}/edit", name="console_document_edit")
+     * @Secure(roles="ROLE_ADMIN")
      * @Template()
      */
     public function editAction($id, $document_id)
@@ -113,6 +116,7 @@ class DocumentController extends Controller
      * Edits an existing Content entity.
      *
      * @Route("/{id}/document/{document_id}/update", name="console_document_update")
+     * @Secure(roles="ROLE_ADMIN")
      * @Method("post")
      * @Template("ManhattanContentBundle:Document:edit.html.twig")
      */
@@ -150,6 +154,7 @@ class DocumentController extends Controller
      * Deletes a Content entity.
      *
      * @Route("/{id}/document/{document_id}/delete", name="console_document_delete")
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function deleteAction($id, $document_id)
     {
