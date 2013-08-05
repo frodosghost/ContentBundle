@@ -6,29 +6,53 @@ use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 class ContentControllerTest extends WebTestCase
 {
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $em;
+
+    public function setUp()
+    {
+        static::$kernel = static::createKernel();
+        static::$kernel->boot();
+        $this->em = static::$kernel->getContainer()->get('doctrine.orm.entity_manager');
+
+        // Add data with Fixtures
+        $this->loadFixtures(array(
+            'Manhattan\Bundle\ConsoleBundle\Tests\DataFixtures\ORM\LoadAuthenticatedAdminUserData',
+        ));
+    }
+
+    protected function tearDown()
+    {
+        $this->loadFixtures(array());
+
+        $this->getContainer()->get('doctrine')->getConnection()->close();
+        parent::tearDown();
+    }
+
     public function testIndex()
     {
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'admin',
-            'PHP_AUTH_PW'   => 'test'
-        ));
+        $user = $this->em->getRepository('ManhattanConsoleBundle:User')->find(1);
+        $this->loginAs($user, 'secured_area');
+        $client = $this->makeClient(true);
 
         // Check index page functions
-        $crawler = $client->request('GET', '/console/content/');
+        $crawler = $client->request('GET', '/console/content');
 
         $this->assertTrue(200 === $client->getResponse()->getStatusCode());
     }
 
     public function testCompleteScenario()
     {
-        // Create a new client to browse the application
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'admin',
-            'PHP_AUTH_PW'   => 'test'
-        ));
+        $user = $this->em->getRepository('ManhattanConsoleBundle:User')->find(1);
+        $this->loginAs($user, 'secured_area');
+        $client = $this->makeClient(true);
 
         // Create a new entry in the database
-        $crawler = $client->request('GET', '/console/content/');
+
+        // Create a new entry in the database
+        $crawler = $client->request('GET', '/console/content');
         $this->assertTrue(200 === $client->getResponse()->getStatusCode());
         $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
 

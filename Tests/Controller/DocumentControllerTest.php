@@ -7,13 +7,36 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class DocumentControllerTest extends WebTestCase
 {
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $em;
+
+    public function setUp()
+    {
+        static::$kernel = static::createKernel();
+        static::$kernel->boot();
+        $this->em = static::$kernel->getContainer()->get('doctrine.orm.entity_manager');
+
+        // Add data with Fixtures
+        $this->loadFixtures(array(
+            'Manhattan\Bundle\ConsoleBundle\Tests\DataFixtures\ORM\LoadAuthenticatedAdminUserData',
+        ));
+    }
+
+    protected function tearDown()
+    {
+        $this->loadFixtures(array());
+
+        $this->getContainer()->get('doctrine')->getConnection()->close();
+        parent::tearDown();
+    }
 
     public function testDocuments()
     {
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'admin',
-            'PHP_AUTH_PW'   => 'test'
-        ));
+        $user = $this->em->getRepository('ManhattanConsoleBundle:User')->find(1);
+        $this->loginAs($user, 'secured_area');
+        $client = $this->makeClient(true);
 
         $crawler = $client->request('GET', '/console/content/new');
         $this->assertTrue(200 === $client->getResponse()->getStatusCode());
