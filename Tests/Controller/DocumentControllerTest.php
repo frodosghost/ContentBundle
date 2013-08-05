@@ -57,8 +57,7 @@ class DocumentControllerTest extends WebTestCase
         $crawler = $client->click($crawler->selectLink('Foo')->link());
 
         $crawler = $client->click($crawler->selectLink('Manage Documents')->link());
-print_r($client->getResponse()->getContent());
-exit;
+
         $this->assertEquals('Documents: Foo', $crawler->filter('h2')->text(), 'Manage Documents page shows correct heading.');
 
         $this->assertEquals(0, $crawler->filter('.document-list')->children()->count(), 'The Document List div is empty becuase nothing has been uploaded.');

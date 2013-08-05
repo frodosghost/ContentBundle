@@ -13,7 +13,7 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
  */
 class ContentRepository extends NestedTreeRepository
 {
-    private $publish_state = 1;
+    private $publishState = 1;
 
     /**
      * Generated Query Example :
@@ -40,13 +40,16 @@ class ContentRepository extends NestedTreeRepository
     {
         $query = $this->getEntityManager()
             ->createQuery('
-                SELECT content, image FROM ManhattanContentBundle:Content content
+                SELECT content, document, image FROM ManhattanContentBundle:Content content
                 LEFT JOIN content.images image
-                WHERE content.lvl = 0 AND content.slug = :slug
-                    AND content.publish_state = :publish_state'
+                LEFT JOIN content.documents document
+                WHERE content.lvl = 0
+                    AND content.slug = :slug
+                    AND content.publishState = :publishState
+                ORDER BY content.root, content.lft ASC'
             )->setParameters(array(
                 'slug' => $slug,
-                'publish_state' => $this->getPublishState()
+                'publishState' => $this->getPublishState()
             ));
 
         try {
@@ -67,20 +70,21 @@ class ContentRepository extends NestedTreeRepository
 	{
 		$query = $this->getEntityManager()
             ->createQuery('
-                SELECT content, parent, image FROM ManhattanContentBundle:Content content
+                SELECT content, parent, document, image FROM ManhattanContentBundle:Content content
                 LEFT JOIN content.images image
+                LEFT JOIN content.documents document
                 LEFT JOIN content.parent parent
                 WHERE content.lvl = 1 AND content.slug = :slug_two
-                    AND content.publish_state = :publish_state
+                    AND content.publishState = :publishState
                 	AND (parent.slug = :slug_one
-                        AND parent.publish_state = :publish_state
+                        AND parent.publishState = :publishState
                 		AND (content.lvl = (parent.lvl + 1)
                 		AND content.lft > parent.lft
                 		AND content.lft < parent.rgt))'
             )->setParameters(array(
                 'slug_one' => $slug_one,
                 'slug_two' => $slug_two,
-                'publish_state' => $this->getPublishState()
+                'publishState' => $this->getPublishState()
             ));
 
         try {
@@ -100,8 +104,9 @@ class ContentRepository extends NestedTreeRepository
     {
         $query = $this->getEntityManager()
             ->createQuery('
-                SELECT content, document FROM ManhattanContentBundle:Content content
+                SELECT content, document, image FROM ManhattanContentBundle:Content content
                 LEFT JOIN content.documents document
+                LEFT JOIN content.images image
                 WHERE content.id = :id'
             )->setParameters(array(
                 'id' => $id
@@ -115,21 +120,45 @@ class ContentRepository extends NestedTreeRepository
     }
 
     /**
+     * Returns page query for displaying all Pages
+     *
+     * @return Doctrine\ORM\Query
+     */
+    public function getPageQuery()
+    {
+        $query = $this->getEntityManager()
+            ->createQuery('
+                SELECT content, document, image FROM ManhattanContentBundle:Content content
+                LEFT JOIN content.documents document
+                LEFT JOIN content.images image
+                WHERE page.publishState = :publishState
+                ORDER BY page.root, page.lft ASC'
+            )->setParameter('publishState', $this->getPublishState());
+
+        return $query;
+    }
+
+    public function findPublishedNodesForDisplay(array $options = array())
+    {
+        return $this->buildTree($this->getPageQuery()->getArrayResult(), $options);
+    }
+
+    /**
      * Sets Publish State to be returned from query
      *
-     * @param  int     $publish_state
+     * @param  int     $publishState
      * @return Content
      */
-    public function setPublishState($publish_state)
+    public function setPublishState($publishState)
     {
-        $this->publish_state = $publish_state;
+        $this->publishState = $publishState;
 
         return $this;
     }
 
     public function getPublishState()
     {
-        return $this->publish_state;
+        return $this->publishState;
     }
 
 }

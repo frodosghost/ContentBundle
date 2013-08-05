@@ -5,10 +5,6 @@ namespace Manhattan\Bundle\ContentBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
 use Manhattan\Bundle\ContentBundle\Entity\Content;
 use Manhattan\Bundle\ContentBundle\Form\ContentType;
 use Symfony\Bridge\Doctrine\Form\ChoiceList\EntityChoiceList;
