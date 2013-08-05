@@ -28,4 +28,18 @@
         </property>
     </class>
 
+    <class name="Manhattan\Bundle\ContentBundle\Entity\Document">
+        <property name="title">
+            <constraint name="NotBlank">
+                <option name="message">Please enter a Title</option>
+            </constraint>
+            <constraint name="Length">
+                <option name="min">2</option>
+                <option name="max">255</option>
+                <option name="minMessage">The Title must be at least {{ limit }} character length</option>
+                <option name="maxMessage">The Title cannot be longer than than {{ limit }} characters length</option>
+            </constraint>
+        </property>
+    </class>
+
 </constraint-mapping>

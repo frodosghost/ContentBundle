@@ -1,6 +1,7 @@
 Manhattan\Bundle\ContentBundle\Entity\Document:
     type:  entity
     table: content_document
+    repositoryClass: Manhattan\Bundle\ContentBundle\Entity\Repository\DocumentRepository
 
     fields:
         title:
