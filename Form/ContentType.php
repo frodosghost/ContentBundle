@@ -20,22 +20,18 @@ class ContentType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('body', 'textarea', array(
-                'attr'  => array(
-                    'class' => 'tinymce',
-                    'data-theme' => 'body'
-                ), 'required' => true,
-                'label' => 'Body'
+            ->add('body', 'markdown', array(
+                'show_help' => true
             ))
-            ->add('center_download', 'choice', array(
+            ->add('centerDownload', 'choice', array(
                 'choices' => array(
                     0 => 'Sidebar Display',
                     1 => 'Main Content'
                 ),
                 'label' => 'Downloads Display Location'
             ))
-            ->add('publish_state', 'choice', array(
-                'choices' => $options['data']->getStaticArray()
+            ->add('publishState', 'publish_state', array(
+                'label' => 'Publish State'
             ))
         ;
 
