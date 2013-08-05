@@ -2,7 +2,7 @@
 
 namespace Manhattan\Bundle\ContentBundle\Form\EventListener;
 
-use Symfony\Component\Form\Event\DataEvent;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvents;
@@ -29,10 +29,10 @@ class AddFileFieldSubscriber implements EventSubscriberInterface
 
     /**
      * Adds the file field to the form if create form.
-     * 
-     * @param  DataEvent $event
+     *
+     * @param  FormEvent $event
      */
-    public function preSetData(DataEvent $event)
+    public function preSetData(FormEvent $event)
     {
         $data = $event->getData();
         $form = $event->getForm();
@@ -43,19 +43,19 @@ class AddFileFieldSubscriber implements EventSubscriberInterface
 
         // check if the object is "new"
         if (!$data->getId()) {
-            $form->add($this->factory->createNamed('file', 'file', null, array(
+            $form->add('file', 'file', array(
                 'required' => true,
                 'data_class' => 'Manhattan\Bundle\ContentBundle\Entity\Document'
-            )));
+            ));
         }
     }
 
     /**
      * Determines if the file has been provided, and displays error if not provided.
-     * 
-     * @param  DataEvent $event
+     *
+     * @param  FormEvent $event
      */
-    public function postBind(DataEvent $event)
+    public function postBind(FormEvent $event)
     {
         $data = $event->getData();
         $form = $event->getForm();

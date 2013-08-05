@@ -102,7 +102,7 @@ class Document extends Asset
     }
 
     /**
-     * @ORM\PrePersist()
+     * PrePersist()
      */
     public function preUpload()
     {

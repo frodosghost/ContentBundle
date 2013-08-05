@@ -221,7 +221,7 @@ abstract class Asset
     }
 
     /**
-     * @ORM\PrePersist()
+     * PrePersist()
      */
     public function preUpload()
     {
@@ -241,7 +241,7 @@ abstract class Asset
     }
 
     /**
-     * @ORM\PreUpdate()
+     * PreUpdate()
      */
     public function preUpdateAsset()
     {
@@ -257,7 +257,7 @@ abstract class Asset
     }
 
     /**
-     * @ORM\PostPersist()
+     * PostPersist()
      */
     public function upload()
     {
@@ -280,7 +280,7 @@ abstract class Asset
      * Assest is updated and requires image replacement this will replace the current image while retaining
      * the field identifier.
      *
-     * @ORM\PostUpdate()
+     * PostUpdate()
      */
     public function replace()
     {
@@ -298,7 +298,7 @@ abstract class Asset
     }
 
     /**
-     * @ORM\PrePersist()
+     * PrePersist()
      */
     public function prePersist() {
         $this->setCreatedAt(new \DateTime());
@@ -306,14 +306,14 @@ abstract class Asset
     }
 
     /**
-     * @ORM\PreUpdate()
+     * PreUpdate()
      */
     public function preUpdate() {
         $this->setUpdatedAt(new \DateTime());
     }
 
     /**
-     * @ORM\PreRemove()
+     * PreRemove()
      */
     public function storeFilenameForRemove()
     {
@@ -321,7 +321,7 @@ abstract class Asset
     }
 
     /**
-     * @ORM\PostRemove()
+     * PostRemove()
      */
     public function removeUpload()
     {
