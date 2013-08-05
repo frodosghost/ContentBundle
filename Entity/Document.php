@@ -2,42 +2,26 @@
 
 namespace Manhattan\Bundle\ContentBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints as Assert;
-
 use Manhattan\Bundle\ContentBundle\Entity\Asset;
 use Manhattan\Bundle\ContentBundle\Entity\Content;
 
 /**
  * Manhattan\Bundle\ContentBundle\Entity\Document
- *
- * @ORM\Table(name="content_document")
- * @ORM\Entity(repositoryClass="Manhattan\Bundle\ContentBundle\Entity\Repository\DocumentRepository")
- * @ORM\HasLifecycleCallbacks
  */
 class Document extends Asset
 {
     /**
      * @var string $title
-     *
-     * @ORM\Column(name="title", type="string", length=255)
-     * @Assert\NotBlank(
-     *     message = "Please enter a Title."
-     * )
      */
     private $title;
 
     /**
      * @var text $description
-     *
-     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Content", inversedBy="documents")
-     * @ORM\JoinColumn(name="content_id", referencedColumnName="id", onDelete="cascade")
+     * @var Manhattan\Bundle\ContentBundle\Entity\Content
      */
     private $content;
 

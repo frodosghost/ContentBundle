@@ -1,0 +1,3 @@
+Manhattan\Bundle\ContentBundle\Entity\Image:
+    type:  entity
+    table: content_image

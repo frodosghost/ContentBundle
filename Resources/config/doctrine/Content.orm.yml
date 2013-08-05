@@ -47,6 +47,7 @@ Manhattan\Bundle\ContentBundle\Entity\Content:
         centerDownload:
             type: boolean
             column: center_download
+            nullable: true
         publishState:
             type: integer
             column: publish_state

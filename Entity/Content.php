@@ -99,8 +99,9 @@ class Content extends Publish
     {
         $this->images = new ArrayCollection();
         $this->documents = new ArrayCollection();
-        $this->publish_state = 1;
-        $this->center_download = 0;
+        $this->centerDownload = 0;
+
+        parent::__construct();
     }
 
     public function __toString()

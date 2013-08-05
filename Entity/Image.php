@@ -2,23 +2,15 @@
 
 namespace Manhattan\Bundle\ContentBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints as Assert;
-
 use Manhattan\Bundle\ContentBundle\Entity\Asset as Asset;
+
 /**
  * Manhattan\Bundle\ContentBundle\Entity\Image
- *
- * @ORM\Table(name="content_image")
- * @ORM\Entity
- * @ORM\HasLifecycleCallbacks
  */
 class Image extends Asset
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Content", inversedBy="images")
-     * @ORM\JoinColumn(name="content_id", referencedColumnName="id", onDelete="cascade")
+     * @var Manhattan\Bundle\ContentBundle\Entity\Content
      */
     private $content;
 
@@ -41,7 +33,7 @@ class Image extends Asset
     /**
      * Get content
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Manhattan\Bundle\ContentBundle\Entity\Content
      */
     public function getContent()
     {
