@@ -1,7 +1,10 @@
-ManhattanContent:
-    resource: "@ManhattanContentBundle/Controller/ContentController.php"
-    type:     annotation
+<?xml version="1.0" encoding="UTF-8" ?>
 
-ManhattanContentDocuments:
-    resource: "@ManhattanContentBundle/Controller/DocumentController.php"
-    type:     annotation
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <import resource="@ManhattanContentBundle/Resources/config/routing/content.xml" prefix="/console" />
+    <import resource="@ManhattanContentBundle/Resources/config/routing/document.xml" prefix="/console/content" />
+
+</routes>
