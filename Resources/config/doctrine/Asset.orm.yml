@@ -1,0 +1,46 @@
+Manhattan\Bundle\ContentBundle\Entity\Asset:
+    type: entity
+    table: asset
+    inheritanceType: JOINED
+    discriminatorColumn:
+        name: class_name
+        fieldName: class_name
+    discriminatorMap:
+        content_image: Manhattan\Bundle\ContentBundle\Entity\Image
+        posts_image: Manhattan\Bundle\PostsBundle\Entity\Image
+        content_document: Manhattan\Bundle\ContentBundle\Entity\Document
+
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        mime_type:
+            type: string
+            length: 255
+        filename:
+            type: string
+            length: 255
+        createdAt:
+            type: datetime
+            column: created_at
+        updatedAt:
+            type: datetime
+            column: updated_at
+
+    lifecycleCallbacks:
+        prePersist:
+            - preUpload
+            - prePersist
+        preUpdate:
+            - preUpdateAsset
+            - preUpdate
+        postPersist:
+            - upload
+        postUpdate:
+            - replace
+        preRemove:
+            - storeFilenameForRemove
+        postRemove:
+            - removeUpload

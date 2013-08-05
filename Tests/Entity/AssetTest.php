@@ -76,10 +76,7 @@ class AssetTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue('foo'));
         $mock_file->expects($this->any())
             ->method('getClientOriginalName')
-            ->will($this->returnValue('bar.jpg'));
-        $mock_file->expects($this->any())
-            ->method('guessExtension')
-            ->will($this->returnValue('jpg'));
+            ->will($this->returnValue('bar.foo'));
 
         // Sets the mock class and initiates the preupload function
         $this->_asset->setFile($mock_file);
@@ -88,10 +85,7 @@ class AssetTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $this->_asset->getMimeType(),
             '->preUpload() correctly adds the mime_type when preparing file object.');
 
-        /**
-         * @see ->testSanitise() - Ensure that the file name is correctly generated.
-         */
-        $this->assertEquals('bar.jpg', $this->_asset->getFilename(),
+        $this->assertEquals('bar.foo', $this->_asset->getFilename(),
             '->preUpload() correctly adds the filename when preparing file object.');
     }
 

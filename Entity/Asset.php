@@ -2,54 +2,30 @@
 
 namespace Manhattan\Bundle\ContentBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-
 use Symfony\Component\HttpFoundation\File\Exception\UploadException;
 
 /**
  * Manhattan\Bundle\ContentBundle\Entity\Asset
- *
- * @ORM\Table(name="asset")
- * @ORM\Entity
- * @ORM\HasLifecycleCallbacks
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="class_name", type="string")
- * @ORM\DiscriminatorMap({
- * "content_image" = "Manhattan\Bundle\ContentBundle\Entity\Image",
- * "posts_image" = "Manhattan\Bundle\PostsBundle\Entity\Image",
- * "content_document" = "Manhattan\Bundle\ContentBundle\Entity\Document"
- * })
  */
 abstract class Asset
 {
     /**
      * @var integer $id
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
      * @var string $mime_type
-     *
-     * @ORM\Column(name="mime_type", type="string", length=255)
      */
     private $mime_type;
 
     /**
      * @var string $filename
-     *
-     * @ORM\Column(name="filename", type="string", length=255)
      */
     private $filename;
 
     /**
      * @var string $file
-     *
-     * @Assert\File(maxSize="6000000")
      */
     private $file;
 
@@ -60,17 +36,14 @@ abstract class Asset
 
     /**
      * @var datetime $created_at
-     *
-     * @ORM\Column(name="created_at", type="datetime")
      */
     private $created_at;
 
     /**
      * @var datetime $updated_at
-     *
-     * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updated_at;
+
 
     public function __toString()
     {
@@ -229,6 +202,7 @@ abstract class Asset
         $extension = preg_replace('/^.*\./', '', $filename);
         $filename = preg_replace('/\.[^.]*$/', '', $filename);
 
+        $filename = preg_replace('/[^a-zA-Z0-9]/', '-', $filename);
         // Replace all weird characters with dashes
         $filename = preg_replace('/[^\w\-~_\.]+/u', '-', $filename);
 
@@ -255,15 +229,35 @@ abstract class Asset
             return;
         }
 
-        $this->setMimeType($this->file->getMimetype());
+        try {
+            $this->setMimeType($this->file->getMimetype());
+        } catch (FileNotFoundException $e) {
+            $this->setMimeType($this->file->getClientMimeType());
+        }
 
         // set the path property to the filename where you'ved saved the file
-        $this->setFilename($this->file->getClientOriginalName());
+        $filename = $this->sanitise($this->file->getClientOriginalName());
+        $this->setFilename($filename);
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function preUpdateAsset()
+    {
+        if (null === $this->file) {
+            return;
+        }
+
+        // Store path for removal
+        $this->storeFilenameForRemove();
+
+        // Run upload to reset properties for new file
+        $this->preUpload();
     }
 
     /**
      * @ORM\PostPersist()
-     * @ORM\PostUpdate()
      */
     public function upload()
     {
@@ -271,12 +265,10 @@ abstract class Asset
             return;
         }
 
-        try
-        {
-            $this->file->move($this->getUploadRootDir(), $this->file->getFilename());
+        try {
+            $this->file->move($this->getUploadRootDir(), $this->getFilename());
         }
-        catch (Exception $e)
-        {
+        catch (Exception $e) {
             throw new UploadException($e->getMessage());
         }
 
@@ -296,9 +288,11 @@ abstract class Asset
             return false;
         }
 
-        // Remove existing image from file system
-        $this->storeFilenameForRemove();
+        // Remove existing image
         $this->removeUpload();
+
+        // Upload new image
+        $this->upload();
 
         return true;
     }
