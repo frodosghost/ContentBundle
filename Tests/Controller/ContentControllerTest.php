@@ -50,11 +50,9 @@ class ContentControllerTest extends WebTestCase
         $client = $this->makeClient(true);
 
         // Create a new entry in the database
-
-        // Create a new entry in the database
         $crawler = $client->request('GET', '/console/content');
         $this->assertTrue(200 === $client->getResponse()->getStatusCode());
-        $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
+        $crawler = $client->click($crawler->selectLink('Create a new page')->link());
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Create')->form(array(
@@ -66,7 +64,20 @@ class ContentControllerTest extends WebTestCase
         $crawler = $client->followRedirect();
 
         // Check data in the show view
-        $this->assertTrue($crawler->filter('td:contains("Test")')->count() > 0);
+        $this->assertGreaterThan(0, $crawler->filter('ul.nested-tree a:contains("Test")')->count(), 'New item appears in list and a:contains("Test")');
+
+        // Edit the entity
+        $crawler = $client->click($crawler->selectLink('Test')->link());
+        $form = $crawler->selectButton('Edit')->form(array(
+            'content[title]'  => 'Foo',
+        ));
+
+        $client->submit($form);
+
+        $crawler = $client->followRedirect();
+
+        // Check the element contains an attribute with value equals "Foo"
+        $this->assertGreaterThan(0, $crawler->filter('ul.nested-tree a:contains("Test")')->count(), 'Title has been updated to [value="Foo"]');
 
         // Edit the entity
         $crawler = $client->click($crawler->selectLink('Edit')->link());
@@ -74,8 +85,8 @@ class ContentControllerTest extends WebTestCase
         $form = $crawler->selectButton('Edit')->form(array(
             'content[title]'  => 'Foo',
             'content[body]'   => 'Text Update',
-            'content[publish_state]' => 4,
-            'content[center_download]' => 1
+            'content[publishState]' => 4,
+            'content[centerDownload]' => 1
         ));
 
         $client->submit($form);

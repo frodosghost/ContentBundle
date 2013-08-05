@@ -2,7 +2,9 @@
 
 namespace Manhattan\Bundle\ContentBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -23,13 +25,13 @@ class ContentController extends Controller
 {
     /**
      * Lists all Content entities.
-     *
-     * @Route("", name="console_content")
-     * @Secure(roles="ROLE_ADMIN")
-     * @Template()
      */
     public function indexAction()
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_USER')) {
+            throw new AccessDeniedException();
+        }
+
         $controller = $this;
         $em = $this->getDoctrine()->getManager();
 
@@ -44,7 +46,7 @@ class ContentController extends Controller
                 'childOpen' => '<li>',
                 'childClose' => '</li>',
                 'nodeDecorator' => function($node) use (&$controller) {
-                    switch ($node['publish_state']) {
+                    switch ($node['publishState']) {
                         case 4:
                             $publish_btn = '<span class="btn-small btn-warning">Archived</span>';
                             break;
@@ -63,95 +65,69 @@ class ContentController extends Controller
             )
         );
 
-        return array(
-            'tree'     => $htmlTree
-        );
+        return $this->render('ManhattanContentBundle:Content:index.html.twig', array(
+            'tree' => $htmlTree
+        ));
 
-    }
-
-    /**
-     * Finds and displays a Content entity.
-     *
-     * @Route("/{id}/show", name="console_content_show")
-     * @Secure(roles="ROLE_ADMIN")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entity = $em->getRepository('ManhattanContentBundle:Content')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Content entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        );
     }
 
     /**
      * Displays a form to create a new Content entity.
-     *
-     * @Route("/new", name="console_content_new")
-     * @Secure(roles="ROLE_ADMIN")
-     * @Template()
      */
     public function newAction()
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_USER')) {
+            throw new AccessDeniedException();
+        }
+
         $entity = new Content();
         $form   = $this->createForm(new ContentType(), $entity);
 
-        return array(
+        return $this->render('ManhattanContentBundle:Content:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView()
-        );
+        ));
     }
 
     /**
      * Creates a new Content entity.
-     *
-     * @Route("/create", name="console_content_create")
-     * @Secure(roles="ROLE_ADMIN")
-     * @Method("post")
-     * @Template("ManhattanContentBundle:Content:new.html.twig")
      */
-    public function createAction()
+    public function createAction(Request $request)
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_USER')) {
+            throw new AccessDeniedException();
+        }
+
         $entity  = new Content();
-        $request = $this->getRequest();
+
         $form    = $this->createForm(new ContentType(), $entity);
-        $form->bindRequest($request);
+        $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('console_content_show', array('id' => $entity->getId())));
-            
+            return $this->redirect($this->generateUrl('console_content'));
+
         }
 
-        return array(
+        return $this->render('ManhattanContentBundle:Content:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView()
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing Content entity.
-     *
-     * @Route("/{id}/edit", name="console_content_edit")
-     * @Secure(roles="ROLE_ADMIN")
-     * @Template()
      */
-    public function editAction($id)
+    public function editAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        if (false === $this->get('security.context')->isGranted('ROLE_USER')) {
+            throw new AccessDeniedException();
+        }
 
+        $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('ManhattanContentBundle:Content')->find($id);
 
         if (!$entity) {
@@ -169,24 +145,23 @@ class ContentController extends Controller
         $editForm = $this->createForm(new ContentType($choice_list), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('ManhattanContentBundle:Content:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+            'delete_form' => $deleteForm->createView()
+        ));
     }
 
     /**
      * Edits an existing Content entity.
-     *
-     * @Route("/{id}/update", name="console_content_update")
-     * @Secure(roles="ROLE_ADMIN")
-     * @Method("post")
-     * @Template("ManhattanContentBundle:Content:edit.html.twig")
      */
-    public function updateAction($id)
+    public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        if (false === $this->get('security.context')->isGranted('ROLE_USER')) {
+            throw new AccessDeniedException();
+        }
+
+        $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('ManhattanContentBundle:Content')->find($id);
 
@@ -205,9 +180,7 @@ class ContentController extends Controller
         $editForm   = $this->createForm(new ContentType($choice_list), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        $request = $this->getRequest();
-
-        $editForm->bindRequest($request);
+        $editForm->bind($request);
 
         if ($editForm->isValid()) {
             $em->persist($entity);
@@ -216,29 +189,28 @@ class ContentController extends Controller
             return $this->redirect($this->generateUrl('console_content_edit', array('id' => $id)));
         }
 
-        return array(
+        return $this->render('ManhattanContentBundle:Content:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+            'delete_form' => $deleteForm->createView()
+        ));
     }
 
     /**
      * Deletes a Content entity.
-     *
-     * @Route("/{id}/delete", name="console_content_delete")
-     * @Secure(roles="ROLE_ADMIN")
-     * @Method("post")
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $request = $this->getRequest();
+        if (false === $this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
 
-        $form->bindRequest($request);
+        $form = $this->createDeleteForm($id);
+
+        $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('ManhattanContentBundle:Content')->find($id);
 
             if (!$entity) {
@@ -247,6 +219,8 @@ class ContentController extends Controller
 
             $em->remove($entity);
             $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success', 'The Content page was removed from the site');
         }
 
         return $this->redirect($this->generateUrl('console_content'));

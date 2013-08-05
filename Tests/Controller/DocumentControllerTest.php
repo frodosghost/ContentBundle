@@ -45,24 +45,23 @@ class DocumentControllerTest extends WebTestCase
         $form = $crawler->selectButton('Create')->form(array(
             'content[title]'  => 'Foo',
             'content[body]'   => 'Foo Bar',
-            'content[publish_state]' => 2
+            'content[publishState]' => 2
         ));
 
         $client->submit($form);
         $crawler = $client->followRedirect();
 
-        $this->assertTrue($crawler->filter('td:contains("Foo")')->count() > 0);
+        $this->assertGreaterThan(0, $crawler->filter('ul.nested-tree a:contains("Foo")')->count(), 'New item appears in list and a:contains("Test")');
 
         // Follow to the Edit page to display link to Documents
-        $crawler = $client->click($crawler->selectLink('Edit')->link());
+        $crawler = $client->click($crawler->selectLink('Foo')->link());
 
         $crawler = $client->click($crawler->selectLink('Manage Documents')->link());
+print_r($client->getResponse()->getContent());
+exit;
+        $this->assertEquals('Documents: Foo', $crawler->filter('h2')->text(), 'Manage Documents page shows correct heading.');
 
-        $this->assertEquals('Documents: Foo', $crawler->filter('h2')->text(),
-            'Manage Documents page shows correct heading.');
-
-        $this->assertEquals(0, $crawler->filter('.document-list')->children()->count(),
-            'The Document List div is empty becuase nothing has been uploaded.');
+        $this->assertEquals(0, $crawler->filter('.document-list')->children()->count(), 'The Document List div is empty becuase nothing has been uploaded.');
 
         $form = $crawler->selectButton('Add Document')->form(array(
             'document[title]'       => 'Foo',
