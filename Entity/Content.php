@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="content")
  * @ORM\HasLifecycleCallbacks
  * @Gedmo\Tree(type="nested")
- * @ORM\Entity(repositoryClass="Manhattan\Bundle\ContentBundle\Entity\ContentRepository")
+ * @ORM\Entity(repositoryClass="Manhattan\Bundle\ContentBundle\Entity\Repository\ContentRepository")
  */
 class Content
 {
@@ -115,14 +115,14 @@ class Content
 
     /**
      * var integer $center_download
-     * 
+     *
      * @ORM\Column(name="center_download", type="integer")
      */
     private $center_download;
 
     /**
      * var integer $publish_state
-     * 
+     *
      * @ORM\Column(name="publish_state", type="integer")
      */
     private $publish_state;
@@ -162,7 +162,7 @@ class Content
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -182,7 +182,7 @@ class Content
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -192,7 +192,7 @@ class Content
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -212,7 +212,7 @@ class Content
     /**
      * Get body
      *
-     * @return text 
+     * @return text
      */
     public function getBody()
     {
@@ -222,7 +222,7 @@ class Content
     /**
      * Get left
      *
-     * @return Content 
+     * @return Content
      */
     public function getLeft()
     {
@@ -232,7 +232,7 @@ class Content
     /**
      * Get right
      *
-     * @return Content 
+     * @return Content
      */
     public function getRight()
     {
@@ -242,7 +242,7 @@ class Content
     /**
      * Get root
      *
-     * @return Content 
+     * @return Content
      */
     public function getRoot()
     {
@@ -250,7 +250,7 @@ class Content
     }
 
     /**
-     * @return integer 
+     * @return integer
      */
     public function getLevel()
     {
@@ -264,23 +264,23 @@ class Content
      */
     public function setParent(Content $parent)
     {
-        $this->parent = $parent;    
+        $this->parent = $parent;
     }
 
     /**
      * Get parent object
      *
-     * @return Content 
+     * @return Content
      */
     public function getParent()
     {
-        return $this->parent;   
+        return $this->parent;
     }
 
     /**
      * Get children
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getChildren()
     {
@@ -314,7 +314,7 @@ class Content
     /**
      * Get Images
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getImages()
     {
@@ -337,7 +337,7 @@ class Content
     /**
      * Get Documents
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getDocuments()
     {
@@ -359,7 +359,7 @@ class Content
     /**
      * Get center_download
      *
-     * @return integer 
+     * @return integer
      */
     public function getCenterDownload()
     {
@@ -381,7 +381,7 @@ class Content
     /**
      * Get publish_state
      *
-     * @return integer 
+     * @return integer
      */
     public function getPublishState()
     {
@@ -401,7 +401,7 @@ class Content
     /**
      * Get created_at
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getCreatedAt()
     {
@@ -421,7 +421,7 @@ class Content
     /**
      * Get updated_at
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getUpdatedAt()
     {
@@ -435,7 +435,7 @@ class Content
         $this->setCreatedAt(new \DateTime());
         $this->setUpdatedAt(new \DateTime());
     }
-    
+
     /**
      * @ORM\PreUpdate
      */
@@ -445,7 +445,7 @@ class Content
 
     /**
      * Returns array of static values for configuring form select values
-     * 
+     *
      * @return srray
      */
     public function getStaticArray()

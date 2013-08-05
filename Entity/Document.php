@@ -13,7 +13,7 @@ use Manhattan\Bundle\ContentBundle\Entity\Content;
  * Manhattan\Bundle\ContentBundle\Entity\Document
  *
  * @ORM\Table(name="content_document")
- * @ORM\Entity(repositoryClass="Manhattan\Bundle\ContentBundle\Entity\DocumentRepository")
+ * @ORM\Entity(repositoryClass="Manhattan\Bundle\ContentBundle\Entity\Repository\DocumentRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Document extends Asset
@@ -62,7 +62,7 @@ class Document extends Asset
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -84,7 +84,7 @@ class Document extends Asset
     /**
      * Get description
      *
-     * @return text 
+     * @return text
      */
     public function getDescription()
     {

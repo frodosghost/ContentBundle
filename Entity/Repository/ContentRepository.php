@@ -1,6 +1,6 @@
 <?php
 
-namespace Manhattan\Bundle\ContentBundle\Entity;
+namespace Manhattan\Bundle\ContentBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
@@ -19,20 +19,20 @@ class ContentRepository extends NestedTreeRepository
      * Generated Query Example :
      * SELECT page.* FROM page, page AS page2, page AS page1
      *   WHERE page.SLUG= 'three' AND page.TREE_LEVEL=3
-     *   AND (page2.SLUG='two' 
-     *     AND (page.TREE_LEVEL = (page2.TREE_LEVEL + 1) 
-     *     AND page.TREE_LEVEL = 3 
+     *   AND (page2.SLUG='two'
+     *     AND (page.TREE_LEVEL = (page2.TREE_LEVEL + 1)
+     *     AND page.TREE_LEVEL = 3
      *     AND page.TREE_LEFT BETWEEN page2.TREE_LEFT AND page2.TREE_RIGHT))
-     *   AND (page1.SLUG='one' 
+     *   AND (page1.SLUG='one'
      *     AND (page2.TREE_LEVEL = (page1.TREE_LEVEL + 1)
      *     AND page2.TREE_LEVEL = 2
      *     AND page2.TREE_LEFT BETWEEN page1.TREE_LEFT AND page1.TREE_RIGHT))
      *   LIMIT 1;
      */
-	
+
     /**
      * Returns Content from position in tree
-     * 
+     *
      * @param  string  $slug
      * @return Content
      */
@@ -58,7 +58,7 @@ class ContentRepository extends NestedTreeRepository
 
     /**
      * Returns Content from position in tree
-     * 
+     *
      * @param  string $slug_one
      * @param  string $slug_two
      * @return Content
@@ -75,7 +75,7 @@ class ContentRepository extends NestedTreeRepository
                 	AND (parent.slug = :slug_one
                         AND parent.publish_state = :publish_state
                 		AND (content.lvl = (parent.lvl + 1)
-                		AND content.lft > parent.lft 
+                		AND content.lft > parent.lft
                 		AND content.lft < parent.rgt))'
             )->setParameters(array(
                 'slug_one' => $slug_one,
@@ -92,7 +92,7 @@ class ContentRepository extends NestedTreeRepository
 
     /**
      * Returns Content with joined Documents
-     * 
+     *
      * @param  int     $id
      * @return Content
      */
@@ -116,7 +116,7 @@ class ContentRepository extends NestedTreeRepository
 
     /**
      * Sets Publish State to be returned from query
-     * 
+     *
      * @param  int     $publish_state
      * @return Content
      */

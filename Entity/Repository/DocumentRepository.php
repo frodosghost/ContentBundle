@@ -1,6 +1,6 @@
 <?php
 
-namespace Manhattan\Bundle\ContentBundle\Entity;
+namespace Manhattan\Bundle\ContentBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -14,7 +14,7 @@ class DocumentRepository extends EntityRepository
 {
     /**
      * Returns Document with joined Content
-     * 
+     *
      * @param  int      $id
      * @return Document
      */
