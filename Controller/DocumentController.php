@@ -71,7 +71,7 @@ class DocumentController extends Controller
             $em->persist($document);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('console_project_documents', array('id' => $content->getId())));
+            return $this->redirect($this->generateUrl('console_content_documents', array('id' => $content->getId())));
         }
 
         return $this->render('ManhattanContentBundle:Document:documents.html.twig', array(
@@ -132,7 +132,7 @@ class DocumentController extends Controller
             $em->persist($document);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('console_document_edit', array('id' => $id, 'document_id' => $document_id)));
+            return $this->redirect($this->generateUrl('console_content_document_edit', array('id' => $id, 'document_id' => $document_id)));
         }
 
         return $this->render('ManhattanContentBundle:Document:edit.html.twig', array(
@@ -160,7 +160,7 @@ class DocumentController extends Controller
         $em->remove($entity);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('console_project_documents', array('id' => $id)));
+        return $this->redirect($this->generateUrl('console_content_documents', array('id' => $id)));
     }
 
 }
