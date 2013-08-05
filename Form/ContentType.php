@@ -20,6 +20,9 @@ class ContentType extends AbstractType
     {
         $builder
             ->add('title')
+            ->add('excerpt', 'markdown', array(
+                'show_help' => false
+            ))
             ->add('body', 'markdown', array(
                 'show_help' => true
             ))
