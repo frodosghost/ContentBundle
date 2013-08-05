@@ -2,146 +2,95 @@
 
 namespace Manhattan\Bundle\ContentBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
+
+use Manhattan\Bundle\ContentBundle\Entity\Base\Publish;
 
 /**
  * Manhattan\Bundle\ContentBundle\Entity\Content
- *
- * @ORM\Table(name="content")
- * @ORM\HasLifecycleCallbacks
- * @Gedmo\Tree(type="nested")
- * @ORM\Entity(repositoryClass="Manhattan\Bundle\ContentBundle\Entity\Repository\ContentRepository")
  */
-class Content
+class Content extends Publish
 {
     /**
-     * Publish States
-     *
-     * @link(Bitwise Operators, http://php.net/manual/en/language.operators.bitwise.php)
-     */
-    const DRAFT = 1;
-
-    const PUBLISH = 2;
-
-    const ARCHIVE = 4;
-
-    /**
      * @var integer $id
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var string $title
-     *
-     * @ORM\Column(name="title", type="string", length=255)
-     * @Assert\NotBlank(
-     *     message = "Please enter a Title."
-     * )
      */
     private $title;
 
     /**
-     * @Gedmo\Slug(fields={"title"})
-     * @ORM\Column(length=128, unique=true)
+     * @var string $slug
      */
     private $slug;
 
     /**
-     * @Gedmo\TreeLeft
-     * @ORM\Column(name="lft", type="integer")
+     * @var integer $lft
      */
     private $lft;
 
     /**
-     * @Gedmo\TreeRight
-     * @ORM\Column(name="rgt", type="integer")
+     * @var integer $rgt
      */
     private $rgt;
 
     /**
-     * @Gedmo\TreeLevel
-     * @ORM\Column(name="lvl", type="integer")
+     * @var integer $lvl
      */
     private $lvl;
 
     /**
-     * @Gedmo\TreeRoot
-     * @ORM\Column(type="integer", nullable=true)
+     * @var integer $root
      */
     private $root;
 
     /**
-     * @Gedmo\TreeParent
-     * @ORM\ManyToOne(targetEntity="Content", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="SET NULL")
+     * * @var integer $parent
      */
     private $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="Content", mappedBy="parent")
-     * @ORM\OrderBy({"lft" = "ASC"})
+     * @var integer $children
      */
     private $children;
 
     /**
+     * @var text $excerpt
+     */
+    private $excerpt;
+
+    /**
      * @var text $body
-     *
-     * @ORM\Column(name="body", type="text")
-     * @Assert\NotBlank(
-     *     message = "Please enter some text for the body of the page."
-     * )
      */
     private $body;
 
     /**
-     * @ORM\OneToMany(targetEntity="Image", mappedBy="content", cascade={"persist", "remove"})
+     * @var Doctrine\Common\Collections\ArrayCollection
      */
     private $images;
 
     /**
-     * @ORM\OneToMany(
-     *     targetEntity="Manhattan\Bundle\ContentBundle\Entity\Document", mappedBy="content", cascade={"persist", "remove"}
-     * )
+     * @var Doctrine\Common\Collections\ArrayCollection
      */
     private $documents;
 
     /**
-     * var integer $center_download
-     *
-     * @ORM\Column(name="center_download", type="integer")
+     * @var integer $center_download
      */
-    private $center_download;
+    private $centerDownload;
 
     /**
-     * var integer $publish_state
-     *
-     * @ORM\Column(name="publish_state", type="integer")
+     * @var datetime $createdAt
      */
-    private $publish_state;
+    private $createdAt;
 
     /**
-     * @var datetime $created_at
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     * @Assert\Type("\DateTime")
+     * @var datetime $updatedAt
      */
-    private $created_at;
-
-    /**
-     * @var datetime $updated_at
-     *
-     * @ORM\Column(name="updated_at", type="datetime")
-     * @Assert\Type("\DateTime")
-     */
-    private $updated_at;
+    private $updatedAt;
 
     /**
      * Constructor
@@ -197,6 +146,26 @@ class Content
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set excerpt
+     *
+     * @param text $excerpt
+     */
+    public function setExcerpt($excerpt)
+    {
+        $this->excerpt = $excerpt;
+    }
+
+    /**
+     * Get excerpt
+     *
+     * @return text
+     */
+    public function getExcerpt()
+    {
+        return $this->excerpt;
     }
 
     /**
@@ -345,116 +314,80 @@ class Content
     }
 
     /**
-     * Set publish_state
-     *
-     * @param integer $publish_state
-     */
-    public function setPublishState($publish_state)
-    {
-        $this->publish_state = $publish_state;
-
-        return $this;
-    }
-
-    /**
-     * Get center_download
+     * Get centerDownload
      *
      * @return integer
      */
     public function getCenterDownload()
     {
-        return $this->center_download;
+        return $this->centerDownload;
     }
 
     /**
-     * Set center_download
+     * Set centerDownload
      *
-     * @param integer $center_download
+     * @param integer $centerDownload
      */
-    public function setCenterDownload($center_download)
+    public function setCenterDownload($centerDownload)
     {
-        $this->center_download = $center_download;
+        $this->centerDownload = $centerDownload;
 
         return $this;
     }
 
     /**
-     * Get publish_state
-     *
-     * @return integer
-     */
-    public function getPublishState()
-    {
-        return $this->publish_state;
-    }
-
-    /**
-     * Set created_at
+     * Set createdAt
      *
      * @param datetime $createdAt
      */
     public function setCreatedAt(\DateTime $createdAt)
     {
-        $this->created_at = $createdAt;
+        $this->createdAt = $createdAt;
     }
 
     /**
-     * Get created_at
+     * Get createdAt
      *
      * @return datetime
      */
     public function getCreatedAt()
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     /**
-     * Set updated_at
+     * Set updatedAt
      *
      * @param datetime $updatedAt
      */
     public function setUpdatedAt(\DateTime $updatedAt)
     {
-        $this->updated_at = $updatedAt;
+        $this->updatedAt = $updatedAt;
     }
 
     /**
-     * Get updated_at
+     * Get updatedAt
      *
      * @return datetime
      */
     public function getUpdatedAt()
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
     /**
-     * @ORM\PrePersist
+     * onCreate
      */
-    public function prePersist() {
+    public function onCreate() {
         $this->setCreatedAt(new \DateTime());
         $this->setUpdatedAt(new \DateTime());
     }
 
     /**
-     * @ORM\PreUpdate
+     * onUpdate
      */
-    public function preUpdate() {
+    public function onUpdate() {
         $this->setUpdatedAt(new \DateTime());
-    }
-
-    /**
-     * Returns array of static values for configuring form select values
-     *
-     * @return srray
-     */
-    public function getStaticArray()
-    {
-        return array(
-            self::DRAFT => 'Draft',
-            self::PUBLISH => 'Publish',
-            self::ARCHIVE => 'Archive'
-        );
     }
 
 }

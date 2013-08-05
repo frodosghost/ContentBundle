@@ -30,7 +30,7 @@ abstract class Asset
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string $mime_type

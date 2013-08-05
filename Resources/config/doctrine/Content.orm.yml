@@ -1,0 +1,96 @@
+Manhattan\Bundle\ContentBundle\Entity\Content:
+    type: entity
+    table: content
+    gedmo:
+        tree:
+            type: nested
+    repositoryClass: Manhattan\Bundle\ContentBundle\Entity\Repository\ContentRepository
+
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        title:
+            type: string
+            length: 255
+        slug:
+            type: string
+            gedmo:
+                slug:
+                    fields: [ title ]
+        excerpt:
+            type: string
+            length: 255
+            nullable: true
+        body:
+            type: text
+            nullable: true
+        lft:
+            type: integer
+            gedmo:
+                - treeLeft
+        rgt:
+            type: integer
+            gedmo:
+                - treeRight
+        root:
+            type: integer
+            nullable: true
+            gedmo:
+                - treeRoot
+        lvl:
+            type: integer
+            gedmo:
+                - treeLevel
+        centerDownload:
+            type: boolean
+            column: center_download
+        publishState:
+            type: integer
+            column: publish_state
+        publishDate:
+            type: datetime
+            column: publish_date
+            nullable: true
+        createdAt:
+            type: datetime
+            column: created_at
+        updatedAt:
+            type: datetime
+            column: updated_at
+
+    manyToOne:
+        parent:
+            targetEntity: Manhattan\Bundle\ContentBundle\Entity\Content
+            inversedBy: children
+            joinColumn:
+                name: parent_id
+                referencedColumnName: id
+                onDelete: CASCADE
+            gedmo:
+                - treeParent
+
+    oneToMany:
+        children:
+            targetEntity: Manhattan\Bundle\ContentBundle\Entity\Content
+            mappedBy: parent
+            orderBy:
+                lft: ASC
+        images:
+            targetEntity: Manhattan\Bundle\ContentBundle\Entity\Image
+            mappedBy: content
+            cascade:
+                - persist
+                - remove
+        documents:
+            targetEntity: Manhattan\Bundle\ContentBundle\Entity\Document
+            mappedBy: content
+            cascade:
+                - persist
+                - remove
+
+    lifecycleCallbacks:
+        prePersist: [ onCreate ]
+        preUpdate:  [ onUpdate ]

@@ -16,13 +16,11 @@ class ContentTest extends \PHPUnit_Framework_TestCase
         $content = new Content();
 
         // Run function
-        $content->prePersist();
+        $content->onCreate();
 
-        $this->assertTrue($content->getCreatedAt() instanceof \DateTime,
-            '->prePersist() sets the CreatedAt field correctly.');
+        $this->assertTrue($content->getCreatedAt() instanceof \DateTime, '->onCreate() sets the CreatedAt field correctly.');
 
-        $this->assertTrue($content->getUpdatedAt() instanceof \DateTime,
-            '->prePersist() sets the UpdatedAt field correctly.');
+        $this->assertTrue($content->getUpdatedAt() instanceof \DateTime, '->prePersist() sets the UpdatedAt field correctly.');
     }
 
     public function testPreUpdate()
@@ -30,23 +28,9 @@ class ContentTest extends \PHPUnit_Framework_TestCase
         $content = new Content();
 
         // Run function
-        $content->preUpdate();
+        $content->onUpdate();
 
-        $this->assertTrue($content->getUpdatedAt() instanceof \DateTime,
-            '->preUpdate() sets the UpdatedAt field correctly.');
-    }
-
-    public function testPublishState()
-    {
-        $content = new Content();
-
-        $this->assertEquals($content->getPublishState(), 1,
-            '->getPublishState() returns 1 as value when no Publish State has not been set.');
-
-        $content->setPublishState(16);
-
-        $this->assertEquals($content->getPublishState(), 16,
-            '->getPublishState() returns 16 as value when Publish State setter has been used.');
+        $this->assertTrue($content->getUpdatedAt() instanceof \DateTime, '->onUpdate() sets the UpdatedAt field correctly.');
     }
 
 }

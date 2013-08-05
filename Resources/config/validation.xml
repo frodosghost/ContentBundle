@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="Manhattan\Bundle\ContentBundle\Entity\Content">
+        <property name="title">
+            <constraint name="NotBlank">
+                <option name="message">Please enter a Title</option>
+            </constraint>
+            <constraint name="Length">
+                <option name="min">2</option>
+                <option name="max">255</option>
+                <option name="minMessage">The Title must be at least {{ limit }} character length</option>
+                <option name="maxMessage">The Title cannot be longer than than {{ limit }} characters length</option>
+            </constraint>
+        </property>
+        <property name="excerpt">
+            <constraint name="Length">
+                <option name="min">2</option>
+                <option name="max">255</option>
+            </constraint>
+        </property>
+        <property name="body">
+            <constraint name="NotBlank">
+                <option name="message">Please enter some text for the body of the page</option>
+            </constraint>
+        </property>
+    </class>
+
+</constraint-mapping>
