@@ -3,7 +3,7 @@
 {% block content %}
 <form action="{{ path('console_content_update', { 'id': entity.id }) }}" class="form-horizontal well" method="post" {{ form_enctype(edit_form) }} novalidate>
     <div class="manage">
-        <a href="{{ path('console_project_documents', { 'id': entity.id }) }}" class="btn manage">Manage Documents</a>
+        <a href="{{ path('console_content_documents', { 'id': entity.id }) }}" class="btn manage">Manage Documents</a>
         <h2>{{ entity.title }}</h2>
         {{ form_widget(edit_form) }}
 
@@ -32,6 +32,32 @@
 </fieldset>
 {% endblock %}
 
-{% block page_javascript %}
-    {{ tinymce_init() }}
-{% endblock page_javascript %}
+{% block foot_script %}
+    {# To only use a subset or add more js overwrite and copy paste this block
+    To speed up page loads save a copy of jQuery in your project and override this block to include the correct path
+    Otherwise the regeneration is done on every load in dev more with use_controller: true
+     #}
+
+    {% javascripts
+        'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-transition.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-alert.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-modal.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-dropdown.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-scrollspy.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-tooltip.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-popover.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-button.js'
+        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
+        '@MopaBootstrapBundle/Resources/public/js/eyecon-bootstrap-datepicker.js'
+        '@OrnjMarkdownBundle/Resources/public/js/markdown.js'
+        '@OrnjMarkdownBundle/Resources/public/js/to-markdown.js'
+        '@OrnjMarkdownBundle/Resources/public/js/bootbox.js'
+        '@OrnjMarkdownBundle/Resources/public/js/bootstrap-markdown.js'
+        filter="?yui_js"
+        output="js/console-edit.js"
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock foot_script %}
