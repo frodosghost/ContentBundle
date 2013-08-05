@@ -14,8 +14,6 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 
 /**
  * Content controller.
- *
- * @Route("/console/content")
  */
 class ContentController extends Controller
 {
