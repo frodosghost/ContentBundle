@@ -80,7 +80,7 @@ abstract class Asset
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -100,7 +100,7 @@ abstract class Asset
     /**
      * Get mime_type
      *
-     * @return string 
+     * @return string
      */
     public function getMimeType()
     {
@@ -120,7 +120,7 @@ abstract class Asset
     /**
      * Get filename
      *
-     * @return string 
+     * @return string
      */
     public function getFilename()
     {
@@ -140,7 +140,7 @@ abstract class Asset
     /**
      * Get file
      *
-     * @return string 
+     * @return string
      */
     public function getFile()
     {
@@ -170,7 +170,7 @@ abstract class Asset
     /**
      * Get created_at
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getCreatedAt()
     {
@@ -190,7 +190,7 @@ abstract class Asset
     /**
      * Get updated_at
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getUpdatedAt()
     {
@@ -220,7 +220,7 @@ abstract class Asset
      *
      * @link(Sanitizing strings to make them URL and filename safe? , http://stackoverflow.com/q/2668854/174148)
      * @param  string $filename
-     * 
+     *
      * @return string
      */
     public function sanitise($filename)
@@ -273,7 +273,7 @@ abstract class Asset
 
         try
         {
-            $this->file->move($this->getUploadRootDir(), $this->file->getClientOriginalName());
+            $this->file->move($this->getUploadRootDir(), $this->file->getFilename());
         }
         catch (Exception $e)
         {
@@ -310,7 +310,7 @@ abstract class Asset
         $this->setCreatedAt(new \DateTime());
         $this->setUpdatedAt(new \DateTime());
     }
-    
+
     /**
      * @ORM\PreUpdate()
      */
