@@ -7,6 +7,8 @@
         <parameter key="manhattan_content.constant.draft" type="constant">Manhattan\Bundle\ContentBundle\Entity\Content::DRAFT</parameter>
         <parameter key="manhattan_content.constant.publish" type="constant">Manhattan\Bundle\ContentBundle\Entity\Content::PUBLISH</parameter>
         <parameter key="manhattan_content.constant.archive" type="constant">Manhattan\Bundle\ContentBundle\Entity\Content::ARCHIVE</parameter>
+
+        <parameter key="manhattan_content.event.persist_listener">Manhattan\Bundle\ContentBundle\EventListener\ObjectPersistListener</parameter>
     </parameters>
 
     <services>
@@ -26,6 +28,31 @@
 
         <service id="manhattan_console_bundle.configure_menu_listener" class="Manhattan\Bundle\ContentBundle\EventListener\ConfigureMenuListener">
             <tag name="kernel.event_listener" event="manhattan_console_bundle.menu_configure" method="onMenuConfigure" />
+        </service>
+
+        <!-- DOCTRINE PERSISTING -->
+        <service id="doctrine.pre_persist" class="%manhattan_content.event.persist_listener%">
+            <tag name="doctrine.event_listener" event="prePersist" />
+        </service>
+
+        <service id="doctrine.post_persist" class="%manhattan_content.event.persist_listener%">
+            <tag name="doctrine.event_listener" event="postPersist" />
+        </service>
+
+        <service id="doctrine.pre_update" class="%manhattan_content.event.persist_listener%">
+            <tag name="doctrine.event_listener" event="preUpdate" />
+        </service>
+
+        <service id="doctrine.post_update" class="%manhattan_content.event.persist_listener%">
+            <tag name="doctrine.event_listener" event="postUpdate" />
+        </service>
+
+        <service id="doctrine.pre_remove" class="%manhattan_content.event.persist_listener%">
+            <tag name="doctrine.event_listener" event="preRemove" />
+        </service>
+
+        <service id="doctrine.post_remove" class="%manhattan_content.event.persist_listener%">
+            <tag name="doctrine.event_listener" event="postRemove" />
         </service>
     </services>
 </container>
