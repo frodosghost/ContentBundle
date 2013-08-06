@@ -6,8 +6,9 @@ Manhattan\Bundle\ContentBundle\Entity\Asset:
         name: class_name
         fieldName: class_name
     discriminatorMap:
-        content_image: Manhattan\Bundle\ContentBundle\Entity\Image
         posts_image: Manhattan\Bundle\PostsBundle\Entity\Image
+        posts_document: Manhattan\Bundle\PostsBundle\Entity\Document
+        content_image: Manhattan\Bundle\ContentBundle\Entity\Image
         content_document: Manhattan\Bundle\ContentBundle\Entity\Document
 
     fields:

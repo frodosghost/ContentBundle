@@ -77,10 +77,7 @@ class ContentControllerTest extends WebTestCase
         $crawler = $client->followRedirect();
 
         // Check the element contains an attribute with value equals "Foo"
-        $this->assertGreaterThan(0, $crawler->filter('ul.nested-tree a:contains("Foo")')->count(), 'Title has been updated to [value="Foo"]');
-
-        // Edit the entity
-        $crawler = $client->click($crawler->selectLink('Foo')->link());
+        $this->assertGreaterThan(0, $crawler->filter('input[value="Foo"]')->count(), 'Title has been updated to [value="Foo"]');
 
         $form = $crawler->selectButton('Edit')->form(array(
             'content[title]'  => 'Foo',
@@ -93,9 +90,7 @@ class ContentControllerTest extends WebTestCase
         $crawler = $client->followRedirect();
 
         // Check the element contains an attribute with value equals "Foo"
-        $this->assertGreaterThan(0, $crawler->filter('ul.nested-tree a:contains("Foo")')->count());
-
-        $crawler = $client->click($crawler->selectLink('Foo')->link());
+        $this->assertGreaterThan(0, $crawler->filter('input[value="Foo"]')->count());
 
         $this->assertEquals(4, $crawler->filter('#content_publishState option:contains("Archive")')->attr('value'),
             'Archive value has been set from the select box and updated to Archive value.');
