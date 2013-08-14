@@ -15,14 +15,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
     {
         $document = new Document();
 
-        $mock_content = $this->getMock('Manhattan\Bundle\ContentBundle\Entity\Content');
-        $mock_content->expects($this->any())
-            ->method('getSlug')
-            ->will($this->returnValue('foo-bar'));
-
-        $document->addContent($mock_content);
-
-        $this->assertEquals('uploads/documents/foo-bar', $document->getUploadDir(),
+        $this->assertEquals('uploads/documents', $document->getUploadDir(),
             '->getUploadDir() returns the correctly set directory.');
     }
 

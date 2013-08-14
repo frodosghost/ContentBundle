@@ -42,7 +42,7 @@ class Image extends Asset
 
     public function getUploadDir()
     {
-        return 'uploads/content/'. $this->getContent()->getSlug();
+        return 'uploads/content';
     }
 
 }

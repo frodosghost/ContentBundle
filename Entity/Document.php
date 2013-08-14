@@ -98,7 +98,7 @@ class Document extends Asset
 
     public function getUploadDir()
     {
-        return 'uploads/documents/'. $this->getContent()->getSlug();
+        return 'uploads/documents';
     }
 
     /**

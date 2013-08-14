@@ -3,9 +3,9 @@
 namespace Manhattan\Bundle\ContentBundle\Form\EventListener;
 
 use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Form\FormEvents;
 
 use Symfony\Component\Form\CallbackValidator;
 use Symfony\Component\Form\FormError;

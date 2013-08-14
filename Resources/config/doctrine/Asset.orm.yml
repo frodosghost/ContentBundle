@@ -1,13 +1,11 @@
 Manhattan\Bundle\ContentBundle\Entity\Asset:
     type: entity
-    table: asset
+    table: content_asset
     inheritanceType: JOINED
     discriminatorColumn:
         name: class_name
         fieldName: class_name
     discriminatorMap:
-        posts_image: Manhattan\Bundle\PostsBundle\Entity\Image
-        posts_document: Manhattan\Bundle\PostsBundle\Entity\Document
         content_image: Manhattan\Bundle\ContentBundle\Entity\Image
         content_document: Manhattan\Bundle\ContentBundle\Entity\Document
 

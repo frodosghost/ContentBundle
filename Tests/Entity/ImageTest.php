@@ -15,14 +15,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     {
         $image = new Image();
 
-        $mock_content = $this->getMock('Manhattan\Bundle\ContentBundle\Entity\Content');
-        $mock_content->expects($this->any())
-            ->method('getSlug')
-            ->will($this->returnValue('foo-bar'));
-
-        $image->addContent($mock_content);
-
-        $this->assertEquals('uploads/content/foo-bar', $image->getUploadDir(),
+        $this->assertEquals('uploads/content', $image->getUploadDir(),
             '->getUploadDir() returns the correctly set directory.');
     }
 

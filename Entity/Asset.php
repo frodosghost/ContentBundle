@@ -2,6 +2,7 @@
 
 namespace Manhattan\Bundle\ContentBundle\Entity;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\UploadException;
 
 /**
@@ -25,7 +26,7 @@ abstract class Asset
     private $filename;
 
     /**
-     * @var string $file
+     * @var Symfony\Component\HttpFoundation\File\UploadedFile $file
      */
     private $file;
 
@@ -105,7 +106,7 @@ abstract class Asset
      *
      * @param string $file
      */
-    public function setFile($file)
+    public function setFile(UploadedFile $file = null)
     {
         $this->file = $file;
     }
@@ -225,7 +226,7 @@ abstract class Asset
      */
     public function preUpload()
     {
-        if (null === $this->file) {
+        if (null === $this->getFile()) {
             return;
         }
 
@@ -245,7 +246,7 @@ abstract class Asset
      */
     public function preUpdateAsset()
     {
-        if (null === $this->file) {
+        if (null === $this->getFile()) {
             return;
         }
 
@@ -261,7 +262,7 @@ abstract class Asset
      */
     public function upload()
     {
-        if (null === $this->file) {
+        if (null === $this->getFile()) {
             return;
         }
 
@@ -284,8 +285,8 @@ abstract class Asset
      */
     public function replace()
     {
-        if (null === $this->file) {
-            return false;
+        if (null === $this->getFile()) {
+            return;
         }
 
         // Remove existing image
