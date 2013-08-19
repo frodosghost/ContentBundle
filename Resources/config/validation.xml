@@ -15,12 +15,6 @@
                 <option name="maxMessage">The Title cannot be longer than than {{ limit }} characters length</option>
             </constraint>
         </property>
-        <property name="excerpt">
-            <constraint name="Length">
-                <option name="min">2</option>
-                <option name="max">255</option>
-            </constraint>
-        </property>
         <property name="body">
             <constraint name="NotBlank">
                 <option name="message">Please enter some text for the body of the page</option>

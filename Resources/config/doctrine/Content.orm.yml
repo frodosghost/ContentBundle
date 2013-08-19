@@ -22,7 +22,7 @@ Manhattan\Bundle\ContentBundle\Entity\Content:
                     fields: [ title ]
         excerpt:
             type: string
-            length: 255
+            type: text
             nullable: true
         body:
             type: text
