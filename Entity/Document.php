@@ -110,7 +110,11 @@ class Document extends Asset
             return;
         }
 
-        $this->setMimeType($this->getFile()->getMimetype());
+        try {
+            $this->setMimeType($this->getFile()->getMimetype());
+        } catch (FileNotFoundException $e) {
+            $this->setMimeType($this->getFile()->getClientMimeType());
+        }
 
         // set the path property to the filename where you'ved saved the file
         $filename = $this->sanitise($this->getFile()->getClientOriginalName());

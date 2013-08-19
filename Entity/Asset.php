@@ -18,12 +18,12 @@ abstract class Asset
     /**
      * @var string $mime_type
      */
-    private $mime_type;
+    protected $mime_type;
 
     /**
      * @var string $filename
      */
-    private $filename;
+    protected $filename;
 
     /**
      * @var Symfony\Component\HttpFoundation\File\UploadedFile $file
@@ -38,12 +38,12 @@ abstract class Asset
     /**
      * @var datetime $createdAt
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var datetime $updatedAt
      */
-    private $updatedAt;
+    protected $updatedAt;
 
 
     public function __toString()
