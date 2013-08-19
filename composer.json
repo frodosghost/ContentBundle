@@ -17,6 +17,7 @@
     "target-dir": "Manhattan/Bundle/ContentBundle",
     "require": {
         "symfony/symfony": "2.3.*",
-        "manhattan/console-bundle": "dev-master"
+        "manhattan/console-bundle": "dev-master",
+        "manhattan/publish-bundle": "dev-master"
     }
 }
