@@ -41,7 +41,6 @@ class ContentType extends AbstractType
         $options = array(
             'class' => 'Manhattan\Bundle\ContentBundle\Entity\Content',
             'empty_value' => '---',
-            'required' => false,
             'label' => 'Parent Page'
         );
         if ($this->choice_list) {
