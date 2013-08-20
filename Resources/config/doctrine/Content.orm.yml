@@ -48,19 +48,6 @@ Manhattan\Bundle\ContentBundle\Entity\Content:
             type: boolean
             column: center_download
             nullable: true
-        publishState:
-            type: integer
-            column: publish_state
-        publishDate:
-            type: datetime
-            column: publish_date
-            nullable: true
-        createdAt:
-            type: datetime
-            column: created_at
-        updatedAt:
-            type: datetime
-            column: updated_at
 
     manyToOne:
         parent:
@@ -91,7 +78,3 @@ Manhattan\Bundle\ContentBundle\Entity\Content:
             cascade:
                 - persist
                 - remove
-
-    lifecycleCallbacks:
-        prePersist: [ onCreate ]
-        preUpdate:  [ onUpdate ]

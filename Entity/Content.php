@@ -5,7 +5,7 @@ namespace Manhattan\Bundle\ContentBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-use Manhattan\Bundle\ContentBundle\Entity\Base\Publish;
+use Manhattan\PublishBundle\Entity\Publish;
 
 /**
  * Manhattan\Bundle\ContentBundle\Entity\Content
@@ -82,15 +82,6 @@ class Content extends Publish
      */
     private $centerDownload;
 
-    /**
-     * @var datetime $createdAt
-     */
-    private $createdAt;
-
-    /**
-     * @var datetime $updatedAt
-     */
-    private $updatedAt;
 
     /**
      * Constructor
@@ -334,61 +325,6 @@ class Content extends Publish
         $this->centerDownload = $centerDownload;
 
         return $this;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param datetime $createdAt
-     */
-    public function setCreatedAt(\DateTime $createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return datetime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param datetime $updatedAt
-     */
-    public function setUpdatedAt(\DateTime $updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return datetime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * onCreate
-     */
-    public function onCreate() {
-        $this->setCreatedAt(new \DateTime());
-        $this->setUpdatedAt(new \DateTime());
-    }
-
-    /**
-     * onUpdate
-     */
-    public function onUpdate() {
-        $this->setUpdatedAt(new \DateTime());
     }
 
 }

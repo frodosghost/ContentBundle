@@ -120,7 +120,7 @@ class ContentRepository extends NestedTreeRepository
     }
 
     /**
-     * Returns page query for displaying all Pages
+     * Returns content query for displaying all Pages
      *
      * @return Doctrine\ORM\Query
      */
@@ -131,8 +131,8 @@ class ContentRepository extends NestedTreeRepository
                 SELECT content, document, image FROM ManhattanContentBundle:Content content
                 LEFT JOIN content.documents document
                 LEFT JOIN content.images image
-                WHERE page.publishState = :publishState
-                ORDER BY page.root, page.lft ASC'
+                WHERE content.publishState = :publishState
+                ORDER BY content.root, content.lft ASC'
             )->setParameter('publishState', $this->getPublishState());
 
         return $query;
