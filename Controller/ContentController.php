@@ -8,9 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Manhattan\Bundle\ContentBundle\Entity\Content;
 use Manhattan\Bundle\ContentBundle\Form\ContentType;
 use Symfony\Bridge\Doctrine\Form\ChoiceList\EntityChoiceList;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Manhattan\Bundle\ContentBundle\Form\ChoiceList\ContentEntityLoader;
-
-use JMS\SecurityExtraBundle\Annotation\Secure;
 
 /**
  * Content controller.

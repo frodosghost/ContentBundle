@@ -4,12 +4,11 @@ namespace Manhattan\Bundle\ContentBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use Manhattan\Bundle\ContentBundle\Entity\Content;
 use Manhattan\Bundle\ContentBundle\Entity\Document;
 use Manhattan\Bundle\ContentBundle\Form\DocumentType;
-
-use JMS\SecurityExtraBundle\Annotation\Secure;
 
 /**
  * Content controller.
