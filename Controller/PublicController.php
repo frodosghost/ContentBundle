@@ -31,7 +31,7 @@ class PublicController extends Controller
             throw $this->createNotFoundException(sprintf('Exception: 404 Page Not Found. Unable to find single-slug page with URI: "%s"', $this->getRequest()->getUri()));
         }
 
-        return $this->render('HordernItPublicBundle:Public:content.html.twig', array(
+        return $this->render('ManhattanContentBundle:Public:content.html.twig', array(
             'content' => $content,
             'parent'  => null,
             'pages'   => $content->getChildren($content, true)
@@ -55,7 +55,7 @@ class PublicController extends Controller
 
         $parent = $content->getParent();
 
-        return $this->render('HordernItPublicBundle:Public:content.html.twig', array(
+        return $this->render('ManhattanContentBundle:Public:content.html.twig', array(
             'content' => $content,
             'parent'  => $parent,
             'pages'   => $parent->getChildren($parent, true)
