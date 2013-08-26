@@ -3,9 +3,7 @@
 namespace Manhattan\Bundle\ContentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Manhattan\Bundle\ContentBundle\Entity\Content;
 use Manhattan\Bundle\ContentBundle\Form\ContentType;
