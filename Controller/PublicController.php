@@ -25,7 +25,7 @@ class PublicController extends Controller
             ->setPublishState($this->container->getParameter('manhattan.constant.publish'))
             ->findOneBySlugInTree($slug);
 
-        if (!$content) {
+        if (!($content instanceof Content)) {
             throw $this->createNotFoundException(sprintf('Exception: 404 Page Not Found. Unable to find single-slug page with URI: "%s"', $this->getRequest()->getUri()));
         }
 
@@ -47,7 +47,7 @@ class PublicController extends Controller
             ->setPublishState($this->container->getParameter('manhattan.constant.publish'))
             ->findOneByTwoSlugsInTree($slug_one, $slug_two);
 
-        if (!$content) {
+        if (!($content instanceof Content)) {
             throw $this->createNotFoundException(sprintf('Exception: 404 Page Not Found. Unable to find double-slug page with URI: "%s"', $this->getRequest()->getUri()));
         }
 

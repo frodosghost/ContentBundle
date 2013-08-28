@@ -1,29 +1,33 @@
 <?php
 
-namespace Manhattan\Bundle\PublicBundle\Tests\Controller;
+namespace Manhattan\Bundle\ContentBundle\Tests\Controller;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 class PublicControllerTest extends WebTestCase
 {
-    protected function setUp()
+
+    public function setUp()
     {
-        // Add data with Fixtures to include post listings
+        // Add data with Fixtures
         $this->loadFixtures(array(
-            'Manhattan\Bundle\PublicBundle\Tests\DataFixtures\ORM\FixtureLoader'
+            'Manhattan\Bundle\ContentBundle\Tests\DataFixtures\ORM\FixtureLoader'
         ));
     }
 
     protected function tearDown()
     {
         $this->loadFixtures(array());
+
+        $this->getContainer()->get('doctrine')->getConnection()->close();
+        parent::tearDown();
     }
 
     public function testOneSlugAction()
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/foo-bar');
+        $crawler = $client->request('GET', '/foo');
 
         $this->assertTrue(200 === $client->getResponse()->getStatusCode(),
             'Correct status code is returned when the page has been set correctly');
