@@ -32,7 +32,7 @@ class PublicControllerTest extends WebTestCase
         $this->assertTrue(200 === $client->getResponse()->getStatusCode(),
             'Correct status code is returned when the page has been set correctly');
 
-        $this->assertEquals(1, $crawler->filter('h1:contains("Foo Bar")')->count(),
+        $this->assertEquals(1, $crawler->filter('h1:contains("Foo")')->count(),
             'The "H1" tag contains correct header');
     }
 
