@@ -8,7 +8,7 @@
         {
             "name": "James Rickard",
             "email": "james@frodosghost.com",
-            "homepage": "www.frodosghost.com"
+            "homepage": "http://frodosghost.com"
         }
     ],
     "autoload": {
@@ -18,7 +18,7 @@
     "require": {
         "symfony/symfony": "2.3.*",
         "atom/logger-bundle": "1.0.*",
-        "manhattan/console-bundle": "dev-master",
+        "manhattan/console-bundle": ">=2.0",
         "manhattan/publish-bundle": "dev-master"
     }
 }
