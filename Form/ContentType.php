@@ -31,7 +31,8 @@ class ContentType extends AbstractType
                     0 => 'Sidebar Display',
                     1 => 'Main Content'
                 ),
-                'label' => 'Downloads Display Location'
+                'label' => 'Downloads Display Location',
+                'attr' => array('class' => 'short')
             ))
             ->add('publishState', 'publish_state', array(
                 'label' => 'Publish State'
@@ -41,7 +42,8 @@ class ContentType extends AbstractType
         $options = array(
             'class' => 'Manhattan\Bundle\ContentBundle\Entity\Content',
             'empty_value' => '---',
-            'label' => 'Parent Page'
+            'label' => 'Parent Page',
+            'attr' => array('class' => 'short')
         );
         if ($this->choice_list) {
             $options['choice_list'] = $this->choice_list;
