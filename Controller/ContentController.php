@@ -40,14 +40,17 @@ class ContentController extends Controller
                 'childClose' => '</li>',
                 'nodeDecorator' => function($node) use (&$controller) {
                     switch ($node['publishState']) {
+                        case 8:
+                            $publish_btn = '<span class="pure-button pure-button-warning small">Locked</span>';
+                            break;
                         case 4:
-                            $publish_btn = '<span class="btn-small btn-warning">Archived</span>';
+                            $publish_btn = '<span class="pure-button small">Archived</span>';
                             break;
                         case 2:
-                            $publish_btn = '<span class="btn-small btn-success">Published</span>';
+                            $publish_btn = '<span class="pure-button pure-button-success small">Published</span>';
                             break;
                         default:
-                            $publish_btn = '<span class="btn-small btn-info">Draft</span>';
+                            $publish_btn = '<span class="pure-button pure-button-secondary small">Draft</span>';
                             break;
                     }
 
