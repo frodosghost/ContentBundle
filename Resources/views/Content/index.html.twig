@@ -1,8 +1,15 @@
-{% extends "ManhattanContentBundle::layout.html.twig" %}
+{% extends "ManhattanConsoleBundle:Console:template.html.twig" %}
 
-{% block content %}
+{% block template_title %}Console: Content{% endblock template_title %}
+{% block title %}Console: Content{% endblock title %}
+{% block breadcrumbs %}<li><a href="{{ path('console_index') }}">Console</a></li><li class="current"><a href="{{ path('console_content') }}">Content</a></li>{% endblock breadcrumbs %}
+
+{% block template_console %}
 
 {{ tree|striptags('<p><span><a><i><strong><em><ul><ol><li><h3><h4><h5><h6>')|raw  }}
 
-<a href="{{ path('console_content_new') }}"  class="btn primary">Create a new page</a>
+<div class="l-box">
+    <a href="{{ path('console_content_new') }}"  class="pure-button pure-button-primary">Create a new page</a>
+</div>
+
 {% endblock %}

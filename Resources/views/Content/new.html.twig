@@ -1,36 +1,45 @@
-{% extends "ManhattanContentBundle::layout.html.twig" %}
+{% extends "ManhattanConsoleBundle:Console:template.html.twig" %}
 
-{% block content %}
-<form action="{{ path('console_content_create') }}" method="post" class="form-horizontal well" {{ form_enctype(form) }} novalidate>
-  <fieldset>
-    {{ form_widget(form) }}
-    <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Create</button>
-        <a href="{{ path('console_content') }}" class="btn">Back to the list</a>
+{% block title %}Console: Posts | Create New{% endblock title %}
+{% block template_title %}Console: Posts{% endblock template_title %}
+{% block breadcrumbs %}<li><a href="{{ path('console_index') }}">Console</a></li><li><a href="{{ path('console_content') }}">Content</a></li><li class="current"><a href="{{ path('console_content_new') }}">Create New Content</a></li>{% endblock breadcrumbs %}
+
+{% block template_console %}
+
+<div class="pure-g-r">
+    <div class="pure-u-3-4">
+
+        <div class="l-box">
+            <h2>{{ entity.title }}</h2>
+            <form action="{{ path('console_content_create') }}" method="POST" class="pure-form pure-form-stacked" {{ form_enctype(form) }} novalidate>
+
+                {{ form_widget(form) }}
+
+                <div class="form-actions">
+                    <a href="{{ path('console_content') }}" class="pure-button">Back to the list</a>
+                    <button type="submit" class="pure-button pure-button-primary">Create</button>
+            </form>
+            </div>
+        </div>
+
     </div>
-  </fieldset>
-</form>
-{% endblock %}
+
+    <div class="pure-u-1-4">
+        <div class="l-box">
+            <h3>Create New Content</h3>
+            <p>To create a new post just fill in the Title and Body, then click <em>Create</em>.</p>
+            <p>Content pages are displayed by their <em>slug</em>, a nice version of the title displayed in the URL bar of your browser.</p>
+        </div>
+    </div>
+</div>
+
+{% endblock template_console %}
 
 {% block foot_script %}
-    {# To only use a subset or add more js overwrite and copy paste this block
-    To speed up page loads save a copy of jQuery in your project and override this block to include the correct path
-    Otherwise the regeneration is done on every load in dev more with use_controller: true
-     #}
-
     {% javascripts
+        'http://yui.yahooapis.com/3.13.0/build/yui/yui-min.js'
+        '@ManhattanConsoleBundle/Resources/public/js/yui/mainmenu.js'
         'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-transition.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-alert.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-modal.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-dropdown.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-scrollspy.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-tooltip.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-popover.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-button.js'
-        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
-        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
-        '@MopaBootstrapBundle/Resources/public/js/eyecon-bootstrap-datepicker.js'
         '@OrnjMarkdownBundle/Resources/public/js/markdown.js'
         '@OrnjMarkdownBundle/Resources/public/js/to-markdown.js'
         '@OrnjMarkdownBundle/Resources/public/js/bootbox.js'
