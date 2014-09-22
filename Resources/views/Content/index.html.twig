@@ -1,15 +1,22 @@
 {% extends "ManhattanConsoleBundle:Console:template.html.twig" %}
 
-{% block template_title %}Console: Content{% endblock template_title %}
+{% block headline %}Console: Content{% endblock headline %}
 {% block title %}Console: Content{% endblock title %}
-{% block breadcrumbs %}<li><a href="{{ path('console_index') }}">Console</a></li><li class="current"><a href="{{ path('console_content') }}">Content</a></li>{% endblock breadcrumbs %}
+{% block breadcrumbs %}<li><a href="{{ path('console_index', { 'subdomain': subdomain }) }}">Console</a></li><li class="current">Content</li>{% endblock breadcrumbs %}
 
-{% block template_console %}
+{% block content_content %}
 
-{{ tree|striptags('<p><span><a><i><strong><em><ul><ol><li><h3><h4><h5><h6>')|raw  }}
+    {{ tree|striptags('<p><span><a><i><strong><em><ul><ol><li><h3><h4><h5><h6>')|raw  }}
 
-<div class="l-box">
-    <a href="{{ path('console_content_new') }}"  class="pure-button pure-button-primary">Create a new page</a>
+{% endblock content_content %}
+
+{% block content_sidebar %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Content Controls</h3>
+    </div>
+    <div class="panel-body">
+        <a href="{{ path('console_content_new') }}"  class="btn primary btn-success">Create a New Page</a>
+    </div>
 </div>
-
-{% endblock %}
+{% endblock content_sidebar %}

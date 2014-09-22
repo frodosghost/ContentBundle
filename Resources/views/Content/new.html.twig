@@ -1,52 +1,60 @@
 {% extends "ManhattanConsoleBundle:Console:template.html.twig" %}
 
-{% block title %}Console: Posts | Create New{% endblock title %}
-{% block template_title %}Console: Posts{% endblock template_title %}
-{% block breadcrumbs %}<li><a href="{{ path('console_index') }}">Console</a></li><li><a href="{{ path('console_content') }}">Content</a></li><li class="current"><a href="{{ path('console_content_new') }}">Create New Content</a></li>{% endblock breadcrumbs %}
+{% block headline %}Console: Content | Create New{% endblock headline %}
+{% block title %}Console: Content{% endblock title %}
+{% block breadcrumbs %}<li><a href="{{ path('console_index', { 'subdomain': subdomain }) }}">Console</a></li><li><a href="{{ path('console_content') }}">Content</a></li><li class="current">Create New Content</li>{% endblock breadcrumbs %}
 
-{% block template_console %}
+{% block content_content %}
+    <form action="{{ path('console_content_create') }}" method="POST" class="form-horizontal" {{ form_enctype(form) }} novalidate>
 
-<div class="pure-g-r">
-    <div class="pure-u-3-4">
+        {{ form_widget(form) }}
 
-        <div class="l-box">
-            <h2>{{ entity.title }}</h2>
-            <form action="{{ path('console_content_create') }}" method="POST" class="pure-form pure-form-stacked" {{ form_enctype(form) }} novalidate>
-
-                {{ form_widget(form) }}
-
-                <div class="form-actions">
-                    <a href="{{ path('console_content') }}" class="pure-button">Back to the list</a>
-                    <button type="submit" class="pure-button pure-button-primary">Create</button>
-            </form>
-            </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Create</button>
         </div>
+    </form>
+{% endblock content_content %}
 
+{% block content_sidebar %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Create New Content</h3>
     </div>
-
-    <div class="pure-u-1-4">
-        <div class="l-box">
-            <h3>Create New Content</h3>
-            <p>To create a new post just fill in the Title and Body, then click <em>Create</em>.</p>
+    <div class="panel-body">
+        <p>To create a new post just fill in the Title and Body, then click <em>Create</em>.</p>
             <p>Content pages are displayed by their <em>slug</em>, a nice version of the title displayed in the URL bar of your browser.</p>
-        </div>
+        <a href="{{ path('console_content') }}" class="btn btn-info">Back to the list</a>
     </div>
 </div>
+{% endblock content_sidebar %}
 
-{% endblock template_console %}
+{% block head_style %}
+{% stylesheets filter='less,cssembed,cssrewrite,?yui_css' output='css/style.default.css'
+    '@ManhattanConsoleBundle/Resources/public/less/bootstrap.less'
+    '@ManhattanConsoleBundle/Resources/public/css/prettify.css'
+    '@ManhattanConsoleBundle/Resources/public/less/dashboard.less'
+    '@OrnjMarkdownBundle/Resources/public/css/*'
+%}
+<link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+{% endstylesheets %}
+{% endblock head_style %}
 
 {% block foot_script %}
     {% javascripts
-        'http://yui.yahooapis.com/3.13.0/build/yui/yui-min.js'
-        '@ManhattanConsoleBundle/Resources/public/js/yui/mainmenu.js'
         'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'
+        '@MopaBootstrapBundle/Resources/public/bootstrap/js/tooltip.js'
+        '@MopaBootstrapBundle/Resources/public/bootstrap/js/*.js'
+        '@MopaBootstrapBundle/Resources/public/js/*.js'
         '@OrnjMarkdownBundle/Resources/public/js/markdown.js'
         '@OrnjMarkdownBundle/Resources/public/js/to-markdown.js'
         '@OrnjMarkdownBundle/Resources/public/js/bootbox.js'
         '@OrnjMarkdownBundle/Resources/public/js/bootstrap-markdown.js'
         filter="?yui_js"
-        output="js/console-edit.js"
+        output="js/console_new.js"
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
-{% endjavascripts %}
+    {% endjavascripts %}
 {% endblock foot_script %}
+
+
+
