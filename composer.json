@@ -16,7 +16,7 @@
     },
     "target-dir": "Manhattan/Bundle/ContentBundle",
     "require": {
-        "symfony/symfony": ">=2.3,<2.7-dev",
+        "symfony/symfony": ">=2.3",
         "atom/logger-bundle": "1.0.*",
         "manhattan/console-bundle": ">=3.0,dev-master",
         "manhattan/publish-bundle": "dev-master"
