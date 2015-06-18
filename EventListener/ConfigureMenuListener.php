@@ -13,13 +13,16 @@ class ConfigureMenuListener
     {
         $menu = $event->getMenu();
 
-        $dropdown = $menu->addChild('Content', array('route'=>''))
-            ->setLabelAttribute('class', 'pure-menu-heading')
-            ->setChildrenAttribute('class', 'pure-menu-children green');
-
-        $dropdown->addChild('Content Index', array('route' => 'console_content'))
-            ->setLinkattribute('class', 'main');
+        // Main Menu Item
+        $dropdown = $menu->addChild('Content', array(
+            'route' => 'console_content',
+            'icon' => 'file',
+            'inverted' => false,
+            'append' => false,
+            'dropdown' => true,
+            'caret' => true
+        ));
+        $dropdown->addChild('Content Index', array('route' => 'console_content'));
         $dropdown->addChild('New Content', array('route' => 'console_content_new'));
-
     }
 }

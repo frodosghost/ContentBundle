@@ -15,7 +15,6 @@ class DocumentType extends AbstractType
         $builder
             ->add('title')
             ->add('description', 'textarea', array(
-                'required' => false,
                 'label' => 'Description'
             ))
         ;

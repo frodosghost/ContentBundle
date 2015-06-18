@@ -1,43 +1,35 @@
 {% extends "ManhattanConsoleBundle:Console:template.html.twig" %}
 
-{% block title %}Console: Content | Documents | {{ entity.title }}{% endblock title %}
-{% block template_title %}Console: Content Documents{% endblock template_title %}
-{% block breadcrumbs %}<li><a href="{{ path('console_index') }}">Console</a></li><li><a href="{{ path('console_content') }}">Content</a></li><li><a href="{{ path('console_content_edit', { 'id': entity.id }) }}">{{ entity.title }}</a></li><li class="current"><a href="{{ path('console_content_documents', { 'id': entity.id }) }}">Documents</a></li>{% endblock breadcrumbs %}
+{% block headline %}Content: {{ entity.title }} | Documents{% endblock headline %}
+{% block title %}Console: Content Documents{% endblock title %}
+{% block breadcrumbs %}<li><a href="{{ path('console_index', { 'subdomain': subdomain }) }}">Console</a></li><li><a href="{{ path('console_content') }}">Content</a></li><li><a href="{{ path('console_content_edit', { 'id': entity.id }) }}">{{ entity.title }}</a></li><li class="current">Documents</li>{% endblock breadcrumbs %}
 
-{% block template_console %}
+{% block content %}
+    <div class="col-sm-7">
+        <h1>Documents: {{ entity.title }}</h1>
 
-<div class="pure-g-r">
-    <div class="pure-u-1-2">
+        <div class="document-list">
+            <p><a href="{{ path('console_content_edit', { 'id': entity.id }) }}" class="btn btn-warning">Back to Edit</a></p>
 
-        <div class="l-box">
-            <h1>Documents: {{ entity.title }}</h1>
-            <a href="{{ path('console_content_edit', { 'id': entity.id }) }}" class="pure-button pure-button-secondary">Back to Edit</a>
-            <div class="document-list">
             {% for document in entity.documents %}
                 <div class="document well {{ document.extension }}">
                     <p><strong>{{ document.title }}</strong>: {{ document.description }}</p>
-                    <ul class="actions">
-                        <li><a href="{{ path('console_content_document_edit', {id: entity.id, document_id: document.id}) }}" class="pure-button pure-button-warning small">Edit</a></li>
-                        {% if is_granted('ROLE_SUPER_ADMIN') %}<li><a href="{{ path('console_content_document_delete', {id: entity.id, document_id: document.id}) }}" class="pure-button pure-button-error">Remove</a></li>{% endif %}
-                    </ul>
+                    <div class="btn-group">
+                        <a href="{{ path('console_content_document_edit', {id: entity.id, document_id: document.id}) }}" class="btn btn-warning btn-sm">Edit</a>
+                        {% if is_granted('ROLE_SUPER_ADMIN') %}<a href="{{ path('console_content_document_delete', {id: entity.id, document_id: document.id}) }}" class="btn btn-danger btn-sm">Remove</a>{% endif %}
+                    </div>
                 </div>
             {% endfor %}
+        </div>
+    </div>
+    <div class="col-sm-5">
+        <h2>Upload a New Document</h2>
+        <form action="{{ path('console_content_document_create', { 'id': entity.id }) }}" class="form-horizontal" method="post" {{ form_enctype(form) }} novalidate>
+            {{ form_widget(form) }}
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Add Document</button>
             </div>
-        </div>
-
+        </form>
     </div>
-
-    <div class="pure-u-1-2">
-        <div class="l-box">
-            <h2>Upload a New Document</h2>
-            <form action="{{ path('console_content_document_create', { 'id': entity.id }) }}" class="pure-form pure-form-stacked" method="post" {{ form_enctype(form) }} novalidate>
-                {{ form_widget(form) }}
-                <div class="form-actions">
-                    <button type="submit" class="pure-button pure-button-primary">Add Document</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-{% endblock %}
+{% endblock content %}
