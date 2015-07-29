@@ -6,12 +6,16 @@
 
 {% block content %}
     <div class="col-sm-7">
-        <h1>Documents: {{ entity.title }}</h1>
-
-        <div class="document-list">
-            <p><a href="{{ path('console_content_edit', { 'id': entity.id }) }}" class="btn btn-warning">Back to Edit</a></p>
-
-            {% for document in entity.documents %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-btns">
+                    <a href="{{ path('console_content_edit', { 'id': entity.id }) }}" class="btn btn-warning">Back to Edit</a>
+                </div>
+                <h3 class="panel-title">Documents: {{ entity.title }}</h3>
+            </div>
+            <div class="panel-body">
+                <div class="document-list">
+                {% for document in entity.documents %}
                 <div class="document well {{ document.extension }}">
                     <p><strong>{{ document.title }}</strong>: {{ document.description }}</p>
                     <div class="btn-group">
@@ -19,17 +23,25 @@
                         {% if is_granted('ROLE_SUPER_ADMIN') %}<a href="{{ path('console_content_document_delete', {id: entity.id, document_id: document.id}) }}" class="btn btn-danger btn-sm">Remove</a>{% endif %}
                     </div>
                 </div>
-            {% endfor %}
+                {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
     <div class="col-sm-5">
-        <h2>Upload a New Document</h2>
-        <form action="{{ path('console_content_document_create', { 'id': entity.id }) }}" class="form-horizontal" method="post" {{ form_enctype(form) }} novalidate>
-            {{ form_widget(form) }}
-
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary">Add Document</button>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Upload a New Document</h3>
             </div>
-        </form>
+            <div class="panel-body">
+                <form action="{{ path('console_content_document_create', { 'id': entity.id }) }}" class="form-horizontal" method="post" {{ form_enctype(form) }} novalidate>
+                    {{ form_widget(form) }}
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Add Document</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 {% endblock content %}
