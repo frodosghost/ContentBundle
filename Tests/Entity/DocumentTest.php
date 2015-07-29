@@ -24,25 +24,46 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
         $document = new Document();
 
         // Setup mock class for testing upload file
-        $mock_file = $this->getMockBuilder('\Symfony\Component\HttpFoundation\File\UploadedFile')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $mock_file = $this->createUploadedFileMock('abcdef', 'Foo Bar 239*.doc', true);
 
         $mock_file->expects($this->any())
             ->method('getMimetype')
             ->will($this->returnValue('foo'));
         $mock_file->expects($this->any())
-            ->method('getClientOriginalName')
-            ->will($this->returnValue('Foo Bar 239*.jpg'));
-        $mock_file->expects($this->any())
             ->method('guessExtension')
-            ->will($this->returnValue('jpg'));
+            ->will($this->returnValue('doc'));
 
         $document->setFile($mock_file);
         $document->preUpload();
 
-        $this->assertEquals('foo-bar-239-.jpg', $document->getFilename(),
+        $this->assertEquals('foo-bar-239-.doc', $document->getFilename(),
             '->getFilename() corrects the filename as set when uploaded');
+    }
+
+    private function createUploadedFileMock($name, $originalName, $valid)
+    {
+        $file = $this
+            ->getMockBuilder('Symfony\Component\HttpFoundation\File\UploadedFile')
+            ->setConstructorArgs(array(__DIR__.'/../DataFixtures/foo', 'foo'))
+            ->getMock()
+        ;
+        $file
+            ->expects($this->any())
+            ->method('getBasename')
+            ->will($this->returnValue($name))
+        ;
+        $file
+            ->expects($this->any())
+            ->method('getClientOriginalName')
+            ->will($this->returnValue($originalName))
+        ;
+        $file
+            ->expects($this->any())
+            ->method('isValid')
+            ->will($this->returnValue($valid))
+        ;
+
+        return $file;
     }
 
 }

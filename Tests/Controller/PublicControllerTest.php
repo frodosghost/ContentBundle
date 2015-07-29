@@ -2,13 +2,29 @@
 
 namespace Manhattan\Bundle\ContentBundle\Tests\Controller;
 
+use Doctrine\ORM\Tools\SchemaTool;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 class PublicControllerTest extends WebTestCase
 {
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $em;
 
     public function setUp()
     {
+        $this->em = $this->getContainer()->get('doctrine')->getManager();
+        if (!isset($metadatas)) {
+            $metadatas = $this->em->getMetadataFactory()->getAllMetadata();
+        }
+        $schemaTool = new SchemaTool($this->em);
+        $schemaTool->dropDatabase();
+        if (!empty($metadatas)) {
+            $schemaTool->createSchema($metadatas);
+        }
+        $this->postFixtureSetup();
+
         // Add data with Fixtures
         $this->loadFixtures(array(
             'Manhattan\Bundle\ContentBundle\Tests\DataFixtures\ORM\FixtureLoader'
@@ -17,7 +33,9 @@ class PublicControllerTest extends WebTestCase
 
     protected function tearDown()
     {
-        $this->loadFixtures(array());
+        $schemaTool = new SchemaTool($this->em);
+        $schemaTool->dropDatabase();
+        $this->postFixtureSetup();
 
         $this->getContainer()->get('doctrine')->getConnection()->close();
         parent::tearDown();

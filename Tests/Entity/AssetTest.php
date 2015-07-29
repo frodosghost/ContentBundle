@@ -67,9 +67,7 @@ class AssetTest extends \PHPUnit_Framework_TestCase
     public function testPreUpload()
     {
         // Setup mock class for testing upload file
-        $mock_file = $this->getMockBuilder('\Symfony\Component\HttpFoundation\File\UploadedFile')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $mock_file = $this->createUploadedFileMock('abcdef', 'bar.foo', true);
 
         $mock_file->expects($this->any())
             ->method('getMimetype')
@@ -92,9 +90,7 @@ class AssetTest extends \PHPUnit_Framework_TestCase
     public function testUpload()
     {
         // Setup mock class for testing upload file
-        $mock_file = $this->getMockBuilder('\Symfony\Component\HttpFoundation\File\UploadedFile')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $mock_file = $this->createUploadedFileMock('abcdef', 'original.jpg', true);
 
         // Sets the mock class and initiates the preupload function
         $this->_asset->setFile($mock_file);
@@ -108,9 +104,7 @@ class AssetTest extends \PHPUnit_Framework_TestCase
     public function testUploadException()
     {
         // Setup mock class for testing upload file
-        $mock_file = $this->getMockBuilder('\Symfony\Component\HttpFoundation\File\UploadedFile')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $mock_file = $this->createUploadedFileMock('abcdef', 'original.jpg', true);
 
         // Sets exception to be sent and caught
         $mock_file->expects($this->any())
@@ -166,6 +160,32 @@ class AssetTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('', $this->_asset->getExtension(),
             '->getExtension() returns the correct file extension');
+    }
+
+    private function createUploadedFileMock($name, $originalName, $valid)
+    {
+        $file = $this
+            ->getMockBuilder('Symfony\Component\HttpFoundation\File\UploadedFile')
+            ->setConstructorArgs(array(__DIR__.'/../DataFixtures/foo', 'foo'))
+            ->getMock()
+        ;
+        $file
+            ->expects($this->any())
+            ->method('getBasename')
+            ->will($this->returnValue($name))
+        ;
+        $file
+            ->expects($this->any())
+            ->method('getClientOriginalName')
+            ->will($this->returnValue($originalName))
+        ;
+        $file
+            ->expects($this->any())
+            ->method('isValid')
+            ->will($this->returnValue($valid))
+        ;
+
+        return $file;
     }
 
 }

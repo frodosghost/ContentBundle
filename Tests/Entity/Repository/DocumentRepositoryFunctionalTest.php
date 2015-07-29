@@ -2,6 +2,7 @@
 
 namespace Manhattan\Bundle\ContentBundle\Tests\Entity;
 
+use Doctrine\ORM\Tools\SchemaTool;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 class DocumentRepositoryFunctionalTest extends WebTestCase
@@ -13,9 +14,16 @@ class DocumentRepositoryFunctionalTest extends WebTestCase
 
     public function setUp()
     {
-        static::$kernel = static::createKernel();
-        static::$kernel->boot();
-        $this->em = static::$kernel->getContainer()->get('doctrine.orm.entity_manager');
+        $this->em = $this->getContainer()->get('doctrine')->getManager();
+        if (!isset($metadatas)) {
+            $metadatas = $this->em->getMetadataFactory()->getAllMetadata();
+        }
+        $schemaTool = new SchemaTool($this->em);
+        $schemaTool->dropDatabase();
+        if (!empty($metadatas)) {
+            $schemaTool->createSchema($metadatas);
+        }
+        $this->postFixtureSetup();
 
         // Add data with Fixtures to include post listings
         $this->loadFixtures(array(
@@ -25,7 +33,12 @@ class DocumentRepositoryFunctionalTest extends WebTestCase
 
     protected function tearDown()
     {
-        $this->loadFixtures(array());
+        $schemaTool = new SchemaTool($this->em);
+        $schemaTool->dropDatabase();
+        $this->postFixtureSetup();
+
+        $this->getContainer()->get('doctrine')->getConnection()->close();
+        parent::tearDown();
     }
 
     public function testOneByIdJoinContent()
